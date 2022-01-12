@@ -23,8 +23,8 @@ There are some screenshot :
 
 |  Platform   | ScreenShot  |
 |  ----  | ----  |
-| android  | ![android screenshot](/Users/kaka/Desktop/realworld_flutter/doc/android.jpeg "android screenshot") |
-| macOS  | ![macOS screenshot](/Users/kaka/Desktop/realworld_flutter/doc/mac.png "macOS screenshot") |
+| android  | ![android screenshot](./doc/android.jpeg "android screenshot") |
+| macOS  | ![macOS screenshot](./doc/mac.png "macOS screenshot") |
 
 # Getting started
 
