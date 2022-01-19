@@ -7,12 +7,11 @@ part of 'login.dart';
 // **************************************************************************
 
 Login _$LoginFromJson(Map<String, dynamic> json) => Login(
-      userLoginInfo:
-          LoginUser.fromJson(json['userLoginInfo'] as Map<String, dynamic>),
+      user: LoginUser.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$LoginToJson(Login instance) => <String, dynamic>{
-      'userLoginInfo': instance.userLoginInfo,
+      'user': instance.user.toJson(),
     };
 
 LoginUser _$LoginUserFromJson(Map<String, dynamic> json) => LoginUser(

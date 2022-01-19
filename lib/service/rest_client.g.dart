@@ -68,12 +68,12 @@ class _RestClient implements RestClient {
 
   @override
   Future<ArticlesResp> getArticles(
-      [author, tag, favorited, limit = 10, offset = 0]) async {
+      {author, tag, favoriteBy, limit = 10, offset = 0}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'author': author,
       r'tag': tag,
-      r'favorited': favorited,
+      r'favorited': favoriteBy,
       r'limit': limit,
       r'offset': offset
     };

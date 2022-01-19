@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:realworld_flutter/common/http/dio_manager.dart';
 import 'package:realworld_flutter/model/req/add_user.dart';
 import 'package:realworld_flutter/model/req/create_article.dart';
 import 'package:realworld_flutter/model/req/login.dart';
@@ -15,6 +16,8 @@ part 'rest_client.g.dart';
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
+  static RestClient get client => RestClient(DioManager.dio);
+
   // add new user in database
   @POST("/users")
   Future<UserResp> addUser(@Body() AddUser addUser);
@@ -29,13 +32,13 @@ abstract class RestClient {
 
   // get articles
   @GET("/articles")
-  Future<ArticlesResp> getArticles([
+  Future<ArticlesResp> getArticles({
     @Query("author") String? author,
-    @Query("tag") List<String>? tag,
-    @Query("favorited") String? favorited,
+    @Query("tag") String? tag,
+    @Query("favorited") String? favoriteBy,
     @Query("limit") int limit = 10,
     @Query("offset") int offset = 0,
-  ]);
+  });
 
   //get feed
   @GET("/articles/feed")

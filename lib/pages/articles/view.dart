@@ -1,36 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
+import 'package:realworld_flutter/common/util/screen_adapter.dart';
 import 'package:realworld_flutter/common/widget/app_bar.dart';
 import 'package:realworld_flutter/common/widget/ripple_button.dart';
 import 'package:realworld_flutter/model/entity/article.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import 'logic.dart';
 
-class ArticlesPage extends StatelessWidget {
-  final logic = Get.find<ArticlesLogic>();
-  final state = Get.find<ArticlesLogic>().state;
+class ArticlesPage extends GetView<ArticlesLogic> {
+  late final state = controller.state;
 
   ArticlesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ScreenAdapter.init(context);
     return Scaffold(
       appBar: PageBar(
         context: context,
-        leftMenu: Padding(
-          padding: EdgeInsets.only(left: 24.w),
-          child: Text(
-            'conduit',
-            style: TextStyle(
-              color: AppColors.main,
-              fontSize: 36.sp,
-              fontWeight: FontWeight.bold,
-            ),
+        leftMenu: Text(
+          'conduit',
+          style: TextStyle(
+            color: AppColors.main,
+            fontSize: 48.sp,
+            fontWeight: FontWeight.bold,
           ),
         ),
+        rightMenu: GetBuilder<ArticlesLogic>(
+            id: 'rightMenu',
+            init: controller,
+            builder: (c) => c.state.isLogin
+                ? GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => c.logout(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.transparent,
+                        borderRadius: BorderRadius.all(Radius.circular(48.w)),
+                        border: Border.all(color: AppColors.main, width: 1.w),
+                      ),
+                      padding: EdgeInsets.all(8.w),
+                      child: c.state.user.value?.image?.isNotEmpty == true
+                          ? Image.network(
+                              c.state.user.value?.image ?? '',
+                              width: 48.w,
+                              height: 48.w,
+                            )
+                          : Icon(Icons.people,
+                              size: 48.w, color: AppColors.main),
+                    ),
+                  )
+                : GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => c.login(),
+                    child: Icon(
+                      Icons.login_rounded,
+                      size: 48.w,
+                      color: AppColors.main,
+                    ),
+                  )),
       ),
       body: Obx(() {
         return ListView.separated(
@@ -103,7 +134,7 @@ class ArticlesPage extends StatelessWidget {
               ),
               const Spacer(),
               RippleButton(
-                onTap: () => logic.toggleFav(article),
+                onTap: () => controller.toggleFav(article),
                 padding: EdgeInsets.all(4.w),
                 decoration: BoxDecoration(
                   color: AppColors.transparent,

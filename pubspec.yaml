@@ -31,6 +31,10 @@ dependencies:
     sdk: flutter
   get: ^4.6.1
   intl: ^0.17.0
+  fluttertoast: ^8.0.8
+  shared_preferences: ^2.0.12
+  pull_to_refresh: ^2.0.0
+  lottie: ^1.2.1
   flutter_screenutil: ^5.0.3
   retrofit: '>=3.0.0 <4.0.0'
   logger: any  #for logging purpose
@@ -67,7 +71,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/image/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -1,15 +1,10 @@
-import 'dart:developer' as dev;
-
 import 'package:dio/dio.dart';
 
+import 'interceptors.dart';
+
 class DioManager {
-  static late final CancelToken defaultCancelToken = CancelToken();
-  static late final Dio dio = Dio()
-    ..interceptors.add(LogInterceptor(
-      requestBody: true,
-      responseBody: true,
-      logPrint: (msg) => dev.log(msg.toString()),
-    ));
+  static late CancelToken defaultCancelToken = CancelToken();
+  static late final Dio dio = Dio()..interceptors.addAll(interceptors);
   static late final Set<CancelToken> _cancelTokens = Set.identity();
 
   DioManager._private();
@@ -23,5 +18,6 @@ class DioManager {
       token.cancel(reason);
     }
     _cancelTokens.clear();
+    defaultCancelToken = CancelToken();
   }
 }
