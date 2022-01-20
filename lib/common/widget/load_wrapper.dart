@@ -164,9 +164,6 @@ class _LoadWrapper<T> extends State<LoadWrapper>
   }
 
   _loadMore() async {
-    if (widget.pageService == null) {
-      return;
-    }
     _startIndex += _loadData?.length ?? 0;
     List<T>? response =
         await widget.pageService(_startIndex, widget.pageCount) as List<T>;
@@ -191,6 +188,7 @@ class _LoadWrapper<T> extends State<LoadWrapper>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Builder(builder: (_) {
       if (_loadError != null) {
         return LoadError(
@@ -204,67 +202,68 @@ class _LoadWrapper<T> extends State<LoadWrapper>
       return _loadData != null && _loadData!.isEmpty
           ? widget.emptyWidget ?? LoadEmpty()
           : SmartRefresher(
-              enablePullDown: widget.enablePullDown,
-              enablePullUp: widget.enablePullUp,
-              header: CustomHeader(
-                refreshStyle: RefreshStyle.Behind,
-                onOffsetChange: (offset) {
-                  if (refreshController.headerMode?.value !=
-                      RefreshStatus.refreshing)
+          enablePullDown: widget.enablePullDown,
+          enablePullUp: widget.enablePullUp,
+          header: CustomHeader(
+            refreshStyle: RefreshStyle.Behind,
+            onOffsetChange: (offset) {
+              if (refreshController.headerMode?.value !=
+                      RefreshStatus.refreshing) {
                     _scaleController.value = offset / 80.0;
+                  }
                 },
-                builder: (c, mode) {
-                  Widget body = Container();
-                  Widget loading = Container(
-                    child: FadeTransition(
-                      opacity: _scaleController,
-                      child: ScaleTransition(
-                        child: RefreshLoadingView(),
+            builder: (c, mode) {
+              Widget body = Container();
+              Widget loading = Container(
+                child: FadeTransition(
+                  opacity: _scaleController,
+                  child: ScaleTransition(
+                    child: const RefreshLoadingView(),
                         scale: _scaleController,
                       ),
-                    ),
-                    alignment: Alignment.center,
-                  );
+                ),
+                alignment: Alignment.center,
+              );
 
-                  if ([
-                    RefreshStatus.refreshing,
-                    RefreshStatus.canRefresh,
-                    RefreshStatus.completed
-                  ].contains(mode)) {
-                    body = loading;
-                  }
-                  return body;
-                },
-              ),
-              footer: CustomFooter(
-                height: 80,
-                builder: (BuildContext context, LoadStatus? mode) {
-                  Widget body;
-                  if (mode == LoadStatus.idle) {
-                    body = Text("");
+              if ([
+                RefreshStatus.refreshing,
+                RefreshStatus.canRefresh,
+                RefreshStatus.completed
+              ].contains(mode)) {
+                body = loading;
+              }
+              return body;
+            },
+          ),
+          footer: CustomFooter(
+            height: 80,
+            builder: (BuildContext context, LoadStatus? mode) {
+              Widget body;
+              if (mode == LoadStatus.idle) {
+                body = const Text("");
                   } else if (mode == LoadStatus.loading) {
-                    body = LoadingView();
+                body = const LoadingView();
                   } else if (mode == LoadStatus.failed) {
-                    body = Text("");
+                body = const Text("");
                   } else if (mode == LoadStatus.canLoading) {
-                    body = Text("");
+                body = const Text("");
                   } else {
-                    body = LoadFooter();
+                body = const LoadFooter();
                   }
-                  return Container(
-                    color: AppColors.bg,
-                    child: Center(child: body),
-                  );
-                },
-              ),
-              controller: refreshController,
-              onRefresh: () async {
-                await _initData(showLoading: false);
-              },
-              onLoading: () async {
-                await _loadMore();
-              },
-              child: widget.child);
+              return Container(
+                color: AppColors.bg,
+                child: Center(child: body),
+              );
+            },
+          ),
+          controller: refreshController,
+          onRefresh: () async {
+            await _initData(showLoading: false);
+          },
+          onLoading: () async {
+            await _loadMore();
+          },
+          child: widget.child);
     });
   }
 }

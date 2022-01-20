@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
+import 'package:realworld_flutter/common/constant/app_size.dart';
 
 class ToastUtils {
   static showError(dynamic e) {
@@ -25,14 +26,15 @@ class ToastUtils {
         msg: text,
         gravity: ToastGravity.CENTER,
         toastLength: Toast.LENGTH_SHORT,
-        fontSize: 14.sp,
+        fontSize: AppSize.s_14,
       );
     } else {
       // it may not show toast. see: https://github.com/flutter/flutter/issues/30294
       FToast().init(Get.context!).showToast(
             child: Container(
-              constraints: BoxConstraints.loose(Size(700.w, 64.w)),
-              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.w),
+              constraints: BoxConstraints.loose(Size(700.w, AppSize.w_64)),
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppSize.w_24, vertical: AppSize.w_12),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25.w),
                 color: AppColors.black_50,
@@ -45,7 +47,7 @@ class ToastUtils {
                       text,
                       style: TextStyle(
                         color: AppColors.white,
-                        fontSize: 28.sp,
+                        fontSize: AppSize.s_28,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

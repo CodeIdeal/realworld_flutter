@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
+import 'package:realworld_flutter/common/constant/app_size.dart';
 
 class PageBar extends PreferredSize {
   BuildContext context;
@@ -22,14 +22,14 @@ class PageBar extends PreferredSize {
     this.middleMenu,
     this.rightMenu,
   }) : super(
-          key: key,
-          preferredSize: Size(MediaQuery.of(context).size.width, 88.w),
+    key: key,
+          preferredSize: Size(MediaQuery.of(context).size.width, AppSize.w_88),
           child: Container(
-            height: MediaQuery.of(context).padding.top + 88.w,
+            height: MediaQuery.of(context).padding.top + AppSize.w_88,
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).padding.top,
-                left: 24.w,
-                right: 24.w),
+                left: AppSize.w_24,
+                right: AppSize.w_24),
             decoration: BoxDecoration(
               color: backgroundColor ?? AppColors.bg,
             ),
@@ -46,11 +46,11 @@ class PageBar extends PreferredSize {
                             GestureDetector(
                               onTap: () => Get.back(),
                               child: SizedBox(
-                                width: 48.w,
-                                height: 48.w,
+                                width: AppSize.w_48,
+                                height: AppSize.w_48,
                                 child: Icon(
                                   Icons.arrow_back_rounded,
-                                  size: 48.w,
+                                  size: AppSize.w_48,
                                   color: AppColors.main,
                                 ),
                               ),
@@ -65,7 +65,7 @@ class PageBar extends PreferredSize {
                           title ?? '',
                           style: TextStyle(
                             color: AppColors.main,
-                            fontSize: 36.sp,
+                            fontSize: AppSize.s_36,
                             fontWeight: FontWeight.bold,
                           ),
                           overflow: TextOverflow.ellipsis,
@@ -77,8 +77,8 @@ class PageBar extends PreferredSize {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: SizedBox(
-                      width: 48.w,
-                      height: 48.w,
+                      width: AppSize.w_48,
+                      height: AppSize.w_48,
                       child: rightMenu,
                     ),
                   ),

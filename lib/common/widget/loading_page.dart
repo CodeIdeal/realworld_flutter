@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
 import 'package:realworld_flutter/common/constant/app_size.dart';
 
@@ -47,7 +46,7 @@ class _LoadingPageState extends State<LoadingPage>
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 10.w),
+              margin: EdgeInsets.only(bottom: AppSize.w_10),
               child: AnimatedBuilder(
                   animation: _rotateController,
                   child: Icon(
@@ -65,7 +64,8 @@ class _LoadingPageState extends State<LoadingPage>
             if (!widget.hideText)
               Text(
                 '努力加载中...',
-                style: TextStyle(fontSize: 24.sp, color: AppColors.app_999999),
+                style: TextStyle(
+                    fontSize: AppSize.s_24, color: AppColors.app_999999),
               )
           ],
         ));

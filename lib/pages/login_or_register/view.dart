@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
+import 'package:realworld_flutter/common/constant/app_size.dart';
 import 'package:realworld_flutter/common/widget/app_bar.dart';
 
 import 'logic.dart';
@@ -29,7 +30,7 @@ class LoginOrRegisterPage extends GetView<LoginOrRegisterLogic> {
               child: Center(
                 child: Image.asset(
                   'assets/image/logo.png',
-                  height: 110.w,
+                  height: AppSize.w_110,
                 ),
               ),
             ),
@@ -54,13 +55,13 @@ class LoginOrRegisterPage extends GetView<LoginOrRegisterLogic> {
                 controller: controller.passwordController,
               ),
             ),
-            SizedBox(height: 96.w),
+            SizedBox(height: AppSize.w_96),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32.w),
+              padding: EdgeInsets.symmetric(horizontal: AppSize.w_32),
               child: MaterialButton(
                 onPressed: () => controller.login(),
-                height: 96.w,
-                minWidth: 600.w,
+                height: AppSize.w_96,
+                minWidth: AppSize.w_600,
                 color: AppColors.main,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(48.w)),
@@ -68,7 +69,7 @@ class LoginOrRegisterPage extends GetView<LoginOrRegisterLogic> {
                   'Login',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 28.sp,
+                    fontSize: AppSize.s_28,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -81,7 +82,8 @@ class LoginOrRegisterPage extends GetView<LoginOrRegisterLogic> {
               },
               child: Text(
                 'New User? Create Account',
-                style: TextStyle(color: AppColors.app_383A3C, fontSize: 24.sp),
+                style: TextStyle(
+                    color: AppColors.app_383A3C, fontSize: AppSize.s_24),
               ),
             ),
           ],

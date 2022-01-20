@@ -37,7 +37,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
     return LoadWrapper<Article>(
       child: ListView.separated(
         itemBuilder: (context, index) => _buildArticleItem(articles[index]),
-        separatorBuilder: (context, index) => Divider(height: 1.w),
+        separatorBuilder: (context, index) => Divider(height: AppSize.w_1),
         itemCount: articles.length,
       ),
       pageService: (offset, limit) => fetchArticles(offset, limit),
@@ -63,7 +63,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
                 borderWidth: AppSize.w_2,
                 size: AppSize.w_56,
               ),
-              SizedBox(width: 12.w),
+              SizedBox(width: AppSize.w_12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -71,16 +71,16 @@ class _ArticlesPageState extends State<ArticlesPage> {
                     article.author.username,
                     style: TextStyle(
                       color: AppColors.main,
-                      fontSize: 24.sp,
+                      fontSize: AppSize.s_24,
                     ),
                   ),
-                  SizedBox(height: 8.w),
+                  SizedBox(height: AppSize.w_8),
                   Text(
                     DateFormat.yMMMMEEEEd()
                         .format(DateTime.tryParse(article.createdAt)!),
                     style: TextStyle(
                       color: AppColors.app_989898,
-                      fontSize: 18.sp,
+                      fontSize: AppSize.s_18,
                     ),
                   ),
                 ],
@@ -96,23 +96,23 @@ class _ArticlesPageState extends State<ArticlesPage> {
                   borderRadius: BorderRadius.all(Radius.circular(8.r)),
                   border: Border.all(
                     color: AppColors.main,
-                    width: 2.w,
+                    width: AppSize.w_2,
                   ),
                 ),
                 child: Row(
                   children: [
                     Icon(
                       Icons.favorite_rounded,
-                      size: 24.w,
+                      size: AppSize.w_24,
                       color: article.favorited ? Colors.white : AppColors.main,
                     ),
-                    SizedBox(width: 4.w),
+                    SizedBox(width: AppSize.w_4),
                     Text(
                       article.favoritesCount.toString(),
                       style: TextStyle(
                         color:
                             article.favorited ? Colors.white : AppColors.main,
-                        fontSize: 14.sp,
+                        fontSize: AppSize.s_14,
                       ),
                       textAlign: TextAlign.center,
                     )
@@ -121,12 +121,12 @@ class _ArticlesPageState extends State<ArticlesPage> {
               ),
             ],
           ),
-          SizedBox(height: 24.w),
+          SizedBox(height: AppSize.w_24),
           Text(
             article.title,
             style: TextStyle(
               color: AppColors.app_383A3C,
-              fontSize: 36.sp,
+              fontSize: AppSize.s_36,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -134,16 +134,17 @@ class _ArticlesPageState extends State<ArticlesPage> {
             article.description,
             style: TextStyle(
               color: AppColors.app_808080,
-              fontSize: 28.sp,
+              fontSize: AppSize.s_28,
             ),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: 24.w),
+          SizedBox(height: AppSize.w_24),
           Row(
             children: (article.tagList.mapMany((tag) => [
                   Container(
-                    padding: EdgeInsets.fromLTRB(8.w, 4.w, 8.w, 4.w),
+                    padding: EdgeInsets.fromLTRB(
+                        8.w, AppSize.w_4, AppSize.w_8, AppSize.w_4),
                     decoration: BoxDecoration(
                       color: AppColors.transparent,
                       borderRadius: BorderRadius.all(Radius.circular(12.r)),
@@ -156,12 +157,12 @@ class _ArticlesPageState extends State<ArticlesPage> {
                       tag,
                       style: TextStyle(
                         color: AppColors.app_989898,
-                        fontSize: 16.sp,
+                        fontSize: AppSize.s_16,
                       ),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SizedBox(width: 8.w),
+                  SizedBox(width: AppSize.w_8),
                 ])).toList(),
           )
         ],

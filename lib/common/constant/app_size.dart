@@ -12,6 +12,7 @@ abstract class AppSize {
   static final w_654 = 654.w;
   static final w_640 = 640.w;
   static final w_620 = 620.w;
+  static final w_600 = 600.w;
   static final w_580 = 580.w;
   static final w_560 = 560.w;
   static final w_520 = 520.w;
@@ -143,6 +144,7 @@ abstract class AppSize {
   static final s_24 = 24.sp;
   static final s_22 = 22.sp;
   static final s_20 = 20.sp;
+  static final s_18 = 18.sp;
   static final s_16 = 16.sp;
   static final s_14 = 14.sp;
   static final s_12 = 12.sp;
