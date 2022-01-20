@@ -2,9 +2,9 @@ import 'package:get/get.dart';
 
 import 'logic.dart';
 
-class ArticlesBinding extends Bindings {
+class HomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => ArticlesLogic());
+    Get.lazyPut(() => HomeLogic());
   }
 }
