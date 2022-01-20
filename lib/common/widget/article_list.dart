@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
@@ -47,10 +46,10 @@ class _ArticlesPageState extends State<ArticlesPage> {
 
   Widget _buildArticleItem(Article article) {
     return Container(
-      padding: EdgeInsets.all(24.w),
+      padding: EdgeInsets.all(AppSize.w_24),
       decoration: BoxDecoration(
         color: AppColors.bg,
-        borderRadius: BorderRadius.all(Radius.circular(8.w)),
+        borderRadius: BorderRadius.all(Radius.circular(AppSize.w_8)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,12 +87,12 @@ class _ArticlesPageState extends State<ArticlesPage> {
               const Spacer(),
               RippleButton(
                 onTap: () => toggleFav(article),
-                padding: EdgeInsets.all(4.w),
+                padding: EdgeInsets.all(AppSize.w_4),
                 decoration: BoxDecoration(
                   color: article.favorited
                       ? AppColors.main
                       : AppColors.transparent,
-                  borderRadius: BorderRadius.all(Radius.circular(8.r)),
+                  borderRadius: BorderRadius.all(Radius.circular(AppSize.r_8)),
                   border: Border.all(
                     color: AppColors.main,
                     width: AppSize.w_2,
@@ -144,13 +143,14 @@ class _ArticlesPageState extends State<ArticlesPage> {
             children: (article.tagList.mapMany((tag) => [
                   Container(
                     padding: EdgeInsets.fromLTRB(
-                        8.w, AppSize.w_4, AppSize.w_8, AppSize.w_4),
+                        AppSize.w_8, AppSize.w_4, AppSize.w_8, AppSize.w_4),
                     decoration: BoxDecoration(
                       color: AppColors.transparent,
-                      borderRadius: BorderRadius.all(Radius.circular(12.r)),
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(AppSize.r_12)),
                       border: Border.all(
                         color: AppColors.app_989898,
-                        width: 0.5.w,
+                        width: AppSize.w_1,
                       ),
                     ),
                     child: Text(

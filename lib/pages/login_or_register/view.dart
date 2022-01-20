@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
 import 'package:realworld_flutter/common/constant/app_size.dart';
@@ -19,13 +18,18 @@ class LoginOrRegisterPage extends GetView<LoginOrRegisterLogic> {
         title: 'Login/Register',
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.w),
+        padding: EdgeInsets.all(AppSize.w_16),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(48.w,144.w,48.w,96.w,),
+              padding: EdgeInsets.fromLTRB(
+                AppSize.w_48,
+                AppSize.w_144,
+                AppSize.w_48,
+                AppSize.w_96,
+              ),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(200.w),
+                borderRadius: BorderRadius.circular(AppSize.w_200),
               ),
               child: Center(
                 child: Image.asset(
@@ -35,7 +39,7 @@ class LoginOrRegisterPage extends GetView<LoginOrRegisterLogic> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(24.w),
+              padding: EdgeInsets.all(AppSize.w_24),
               child: TextField(
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -45,7 +49,7 @@ class LoginOrRegisterPage extends GetView<LoginOrRegisterLogic> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(24.w),
+              padding: EdgeInsets.all(AppSize.w_24),
               child: TextField(
                 obscureText: true,
                 decoration: const InputDecoration(
@@ -64,7 +68,7 @@ class LoginOrRegisterPage extends GetView<LoginOrRegisterLogic> {
                 minWidth: AppSize.w_600,
                 color: AppColors.main,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(48.w)),
+                    borderRadius: BorderRadius.circular(AppSize.w_48)),
                 child: Text(
                   'Login',
                   style: TextStyle(
