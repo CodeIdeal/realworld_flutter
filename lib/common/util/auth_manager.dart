@@ -16,7 +16,7 @@ class AuthManager {
 
   static get token => _loginUser?.token;
 
-  static get user => _loginUser;
+  static User? get user => _loginUser;
 
   static login(User user) async {
     _loginUser = user;

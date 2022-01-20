@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         platform: TargetPlatform.iOS,
         canvasColor: AppColors.bg,
       ),
-      initialRoute: Pages.articles,
+      initialRoute: Pages.home,
       getPages: Pages.all,
     );
   }

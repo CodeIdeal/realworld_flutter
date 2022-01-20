@@ -33,36 +33,56 @@ class PageBar extends PreferredSize {
             decoration: BoxDecoration(
               color: backgroundColor ?? AppColors.bg,
             ),
-            child: Row(
+            child: Flex(
+              direction: Axis.horizontal,
               children: [
-                hideBack
-                    ? SizedBox(width: 48.w, height: 48.w)
-                    : GestureDetector(
-                        onTap: () => Get.back(),
-                        child: leftMenu ??
-                            SizedBox(
-                              width: 48.w,
-                              height: 48.w,
-                              child: Icon(
-                                Icons.arrow_back_rounded,
-                                size: 48.w,
-                                color: AppColors.app_3C3C3C,
+                Flexible(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: hideBack
+                        ? const SizedBox.shrink()
+                        : leftMenu ??
+                            GestureDetector(
+                              onTap: () => Get.back(),
+                              child: SizedBox(
+                                width: 48.w,
+                                height: 48.w,
+                                child: Icon(
+                                  Icons.arrow_back_rounded,
+                                  size: 48.w,
+                                  color: AppColors.main,
+                                ),
                               ),
                             ),
-                      ),
-                const Spacer(),
-                middleMenu ??
-                    Text(
-                      title ?? '',
-                      style: TextStyle(
-                        color: AppColors.app_3C3C3C,
-                        fontSize: 28.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Flexible(
+                  flex: 2,
+                  child: Center(
+                    child: middleMenu ??
+                        Text(
+                          title ?? '',
+                          style: TextStyle(
+                            color: AppColors.main,
+                            fontSize: 36.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: SizedBox(
+                      width: 48.w,
+                      height: 48.w,
+                      child: rightMenu,
                     ),
-                const Spacer(),
-                rightMenu ?? SizedBox(width: 48.w, height: 48.w),
+                  ),
+                ),
               ],
             ),
           ),

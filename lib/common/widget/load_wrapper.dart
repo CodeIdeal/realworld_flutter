@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +9,11 @@ import 'package:realworld_flutter/common/util/loading_dialog.dart';
 
 import 'load_widgets.dart';
 
-typedef PageServiceBuilder = Future<List<dynamic>> Function(
-    {int offset, int limit});
+typedef PageServiceBuilder<T> = Future<List<T>?> Function(
+    int offset, int limit);
+typedef OnPageLoaded<T> = void Function(List<T> list);
 
-const int SHOW_LOADING_TIME = 1000;
+const int showLoadingTime = 1000;
 
 const String defaultError = '网络不给力';
 
@@ -21,9 +23,9 @@ const String defaultError = '网络不给力';
 /// [pageService] 为列表类型的请求服务，[onPageLoaded]为每次每次分页请求完成时的回调，回返回本次加载的分页数据;
 class LoadWrapper<T> extends StatefulWidget {
   final Widget child;
-  final PageServiceBuilder pageService;
+  final PageServiceBuilder<T> pageService;
   final LoadController? controller;
-  final Function(List<T>) onPageLoaded;
+  final OnPageLoaded<T> onPageLoaded;
   final Widget? emptyWidget;
   final bool enablePullDown;
   final bool enablePullUp;
@@ -31,7 +33,8 @@ class LoadWrapper<T> extends StatefulWidget {
   final bool keepAlive;
   final int pageCount;
 
-  LoadWrapper({
+  const LoadWrapper({
+    Key? key,
     required this.child,
     required this.pageService,
     required this.onPageLoaded,
@@ -42,16 +45,17 @@ class LoadWrapper<T> extends StatefulWidget {
     this.initLoading = true,
     this.keepAlive = false,
     this.pageCount = 10,
-  });
+  }) : super(key: key);
 
   @override
   _LoadWrapper createState() =>
+      // ignore: no_logic_in_create_state
       _LoadWrapper<T>(onPageLoaded: onPageLoaded, keepAlive: keepAlive);
 }
 
 class _LoadWrapper<T> extends State<LoadWrapper>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  final Function(List<T>)? onPageLoaded;
+  final Function(List<T>) onPageLoaded;
   final bool keepAlive;
 
   _LoadWrapper({required this.onPageLoaded, required this.keepAlive});
@@ -113,7 +117,7 @@ class _LoadWrapper<T> extends State<LoadWrapper>
       _loadData = null;
     });
     if (showLoading && widget.initLoading) {
-      Timer(Duration(milliseconds: SHOW_LOADING_TIME), () {
+      Timer(const Duration(milliseconds: showLoadingTime), () {
         if (!_hideLoading) {
           _hideLoading = true;
           LoadingDialog.show();
@@ -121,15 +125,17 @@ class _LoadWrapper<T> extends State<LoadWrapper>
       });
     }
     try {
-      if (widget.pageService != null) {
-        List<T> response = await widget.pageService(
-            offset: _startIndex, limit: widget.pageCount) as List<T>;
-        setState(() {
-          _loadData = response;
-        });
-        onPageLoaded?.call(_loadData ?? []);
-      }
+      List<T> response =
+          await widget.pageService(_startIndex, widget.pageCount) as List<T>;
+      setState(() {
+        _loadData = response;
+      });
+      onPageLoaded.call(_loadData ?? []);
       refreshController.refreshCompleted();
+      if ((_loadData?.length ?? 0) > 0 &&
+          (_loadData?.length ?? 0) < widget.pageCount) {
+        refreshController.loadNoData();
+      }
       if (showLoading && _hideLoading) {
         LoadingDialog.hide();
       }
@@ -139,7 +145,7 @@ class _LoadWrapper<T> extends State<LoadWrapper>
         _loadError = null;
       });
     } catch (e) {
-      print('load error $e');
+      log('load error $e');
       _hideLoading = true;
       _loading = false;
 
@@ -161,15 +167,16 @@ class _LoadWrapper<T> extends State<LoadWrapper>
     if (widget.pageService == null) {
       return;
     }
-    List<T> response = await widget.pageService(
-        offset: _startIndex, limit: widget.pageCount) as List<T>;
+    _startIndex += _loadData?.length ?? 0;
+    List<T>? response =
+        await widget.pageService(_startIndex, widget.pageCount) as List<T>;
     if (response.isEmpty) {
       refreshController.loadNoData();
       return;
     } else {
       List<T> _data = (_loadData ?? []).map((e) => e).toList();
       _data.addAll(response);
-      onPageLoaded?.call(_data);
+      onPageLoaded.call(_data);
       _loadData = _data;
       refreshController.loadComplete();
     }

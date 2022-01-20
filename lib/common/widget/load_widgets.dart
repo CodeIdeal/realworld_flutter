@@ -46,9 +46,10 @@ class _LoadingView extends State<LoadingView>
         children: [
           Transform.rotate(
             angle: animation.value,
-            child: Image.asset(
-              'assets/images/filter_load.png',
-              width: AppSize.w_60,
+            child: Icon(
+              Icons.sync_rounded,
+              color: AppColors.main,
+              size: AppSize.w_56,
             ),
           ),
           Container(

@@ -6,11 +6,8 @@ import 'package:realworld_flutter/common/widget/app_bar.dart';
 
 import 'logic.dart';
 
-class LoginOrRegisterPage extends StatelessWidget {
-  final logic = Get.find<LoginOrRegisterLogic>();
-  final state = Get.find<LoginOrRegisterLogic>().state;
-
-  LoginOrRegisterPage({Key? key}) : super(key: key);
+class LoginOrRegisterPage extends GetView<LoginOrRegisterLogic> {
+  const LoginOrRegisterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +39,8 @@ class LoginOrRegisterPage extends StatelessWidget {
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'mail',
-                    hintText: 'Enter valid mail id as abc@gmail.com'
-                ),
-                controller: logic.mailController,
+                    hintText: 'Enter valid mail id as abc@gmail.com'),
+                controller: controller.mailController,
               ),
             ),
             Padding(
@@ -54,20 +50,20 @@ class LoginOrRegisterPage extends StatelessWidget {
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
-                    hintText: 'Enter your secure password'
-                ),
-                controller: logic.passwordController,
+                    hintText: 'Enter your secure password'),
+                controller: controller.passwordController,
               ),
             ),
             SizedBox(height: 96.w),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 32.w),
               child: MaterialButton(
-                onPressed: () =>logic.login(),
+                onPressed: () => controller.login(),
                 height: 96.w,
                 minWidth: 600.w,
                 color: AppColors.main,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(48.w)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(48.w)),
                 child: Text(
                   'Login',
                   style: TextStyle(
@@ -85,7 +81,7 @@ class LoginOrRegisterPage extends StatelessWidget {
               },
               child: Text(
                 'New User? Create Account',
-                style: TextStyle(color: AppColors.app_3C3C3C, fontSize: 24.sp),
+                style: TextStyle(color: AppColors.app_383A3C, fontSize: 24.sp),
               ),
             ),
           ],
