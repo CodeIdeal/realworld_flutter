@@ -14,16 +14,6 @@ class LoginOrRegisterLogic extends GetxController {
 
   final mailController = TextEditingController();
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   void login() async {
     try {
       final userResp = await RestClient.client.loginUser(Login(

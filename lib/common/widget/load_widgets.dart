@@ -23,7 +23,7 @@ class _LoadingView extends State<LoadingView>
   initState() {
     super.initState();
     controller = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1000));
+        vsync: this, duration: const Duration(milliseconds: 1000));
     animation = Tween(begin: pi, end: -pi).animate(controller)
       ..addListener(() {
         if (mounted) setState(() {});
@@ -173,12 +173,13 @@ class LoadError extends StatelessWidget {
   final String text;
   final Function callback;
 
-  const LoadError({required this.text, required this.callback});
+  const LoadError({Key? key, required this.text, required this.callback})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: AppSize.w_750,
+    return SizedBox(
+      width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -214,7 +215,7 @@ class LoadError extends StatelessWidget {
               ),
             ),
           ),
-          LoadFooter()
+          const LoadFooter()
         ],
       ),
     );
@@ -222,6 +223,8 @@ class LoadError extends StatelessWidget {
 }
 
 class LoadEmpty extends StatelessWidget {
+  const LoadEmpty({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -246,7 +249,7 @@ class LoadEmpty extends StatelessWidget {
               style: TextStyle(),
             ),
           ),
-          LoadFooter()
+          const LoadFooter()
         ],
       ),
     );

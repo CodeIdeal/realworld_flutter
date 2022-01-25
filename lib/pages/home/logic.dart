@@ -13,11 +13,6 @@ class HomeLogic extends GetxController {
     await fetchLogin();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   void logout() async {
     await AuthManager.logout('manual logout');
     fetchLogin();

@@ -108,12 +108,12 @@ class ProfilePage extends GetView<ProfileLogic> {
                   ? const LoadingPage()
                   : TabBarView(
                       children: [
-                        KeepAliveWrapper(
+                        keepAliveWrapper(
                           child: ArticlesPage(
                             author: controller.state.profile.value?.username,
                           ),
                         ),
-                        KeepAliveWrapper(
+                        keepAliveWrapper(
                           child: ArticlesPage(
                             favoriteBy:
                                 controller.state.profile.value?.username,

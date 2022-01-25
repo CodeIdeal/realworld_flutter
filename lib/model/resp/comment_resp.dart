@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../entity/comment.dart';
-import '../entity/article.dart';
 
 part 'comment_resp.g.dart';
 

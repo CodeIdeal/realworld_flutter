@@ -21,4 +21,4 @@ class _KeepAliveState extends State<KeepAliveWidget>
   }
 }
 
-Widget KeepAliveWrapper({required Widget child}) => KeepAliveWidget(child);
+Widget keepAliveWrapper({required Widget child}) => KeepAliveWidget(child);

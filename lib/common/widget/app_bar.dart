@@ -4,13 +4,13 @@ import 'package:realworld_flutter/common/constant/app_colors.dart';
 import 'package:realworld_flutter/common/constant/app_size.dart';
 
 class PageBar extends PreferredSize {
-  BuildContext context;
-  String? title;
-  Color? backgroundColor;
-  bool hideBack;
-  Widget? leftMenu;
-  Widget? middleMenu;
-  Widget? rightMenu;
+  final BuildContext context;
+  final String? title;
+  final Color? backgroundColor;
+  final bool hideBack;
+  final Widget? leftMenu;
+  final Widget? middleMenu;
+  final Widget? rightMenu;
 
   PageBar({
     Key? key,

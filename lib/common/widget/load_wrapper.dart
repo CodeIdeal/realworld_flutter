@@ -201,7 +201,7 @@ class _LoadWrapper<T> extends State<LoadWrapper>
           return widget.child;
         }
         return _loadData != null && _loadData!.isEmpty
-            ? widget.emptyWidget ?? LoadEmpty()
+            ? widget.emptyWidget ?? const LoadEmpty()
             : SmartRefresher(
                 enablePullDown: widget.enablePullDown,
                 enablePullUp: widget.enablePullUp,
