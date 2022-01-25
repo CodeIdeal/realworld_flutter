@@ -189,82 +189,85 @@ class _LoadWrapper<T> extends State<LoadWrapper>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Builder(builder: (_) {
-      if (_loadError != null) {
-        return LoadError(
-          text: _loadError!,
-          callback: _initData,
-        );
-      }
-      if (!widget.enablePullDown && !widget.enablePullUp) {
-        return widget.child;
-      }
-      return _loadData != null && _loadData!.isEmpty
-          ? widget.emptyWidget ?? LoadEmpty()
-          : SmartRefresher(
-          enablePullDown: widget.enablePullDown,
-          enablePullUp: widget.enablePullUp,
-          header: CustomHeader(
-            refreshStyle: RefreshStyle.Behind,
-            onOffsetChange: (offset) {
-              if (refreshController.headerMode?.value !=
-                      RefreshStatus.refreshing) {
-                    _scaleController.value = offset / 80.0;
-                  }
-                },
-            builder: (c, mode) {
-              Widget body = Container();
-              Widget loading = Container(
-                child: FadeTransition(
-                  opacity: _scaleController,
-                  child: ScaleTransition(
-                    child: const RefreshLoadingView(),
-                        scale: _scaleController,
+    return Builder(
+      builder: (_) {
+        if (_loadError != null) {
+          return LoadError(
+            text: _loadError!,
+            callback: _initData,
+          );
+        }
+        if (!widget.enablePullDown && !widget.enablePullUp) {
+          return widget.child;
+        }
+        return _loadData != null && _loadData!.isEmpty
+            ? widget.emptyWidget ?? LoadEmpty()
+            : SmartRefresher(
+                enablePullDown: widget.enablePullDown,
+                enablePullUp: widget.enablePullUp,
+                header: CustomHeader(
+                  refreshStyle: RefreshStyle.Behind,
+                  onOffsetChange: (offset) {
+                    if (refreshController.headerMode?.value !=
+                        RefreshStatus.refreshing) {
+                      _scaleController.value = offset / 80.0;
+                    }
+                  },
+                  builder: (c, mode) {
+                    Widget body = Container();
+                    Widget loading = Container(
+                      child: FadeTransition(
+                        opacity: _scaleController,
+                        child: ScaleTransition(
+                          child: const RefreshLoadingView(),
+                          scale: _scaleController,
+                        ),
                       ),
-                ),
-                alignment: Alignment.center,
-              );
+                      alignment: Alignment.center,
+                    );
 
-              if ([
-                RefreshStatus.refreshing,
-                RefreshStatus.canRefresh,
-                RefreshStatus.completed
-              ].contains(mode)) {
-                body = loading;
-              }
-              return body;
-            },
-          ),
-          footer: CustomFooter(
-            height: 80,
-            builder: (BuildContext context, LoadStatus? mode) {
-              Widget body;
-              if (mode == LoadStatus.idle) {
-                body = const Text("");
-                  } else if (mode == LoadStatus.loading) {
-                body = const LoadingView();
-                  } else if (mode == LoadStatus.failed) {
-                body = const Text("");
-                  } else if (mode == LoadStatus.canLoading) {
-                body = const Text("");
-                  } else {
-                body = const LoadFooter();
-                  }
-              return Container(
-                color: AppColors.bg,
-                child: Center(child: body),
+                    if ([
+                      RefreshStatus.refreshing,
+                      RefreshStatus.canRefresh,
+                      RefreshStatus.completed
+                    ].contains(mode)) {
+                      body = loading;
+                    }
+                    return body;
+                  },
+                ),
+                footer: CustomFooter(
+                  height: 80,
+                  builder: (BuildContext context, LoadStatus? mode) {
+                    Widget body;
+                    if (mode == LoadStatus.idle) {
+                      body = const Text("");
+                    } else if (mode == LoadStatus.loading) {
+                      body = const LoadingView();
+                    } else if (mode == LoadStatus.failed) {
+                      body = const Text("");
+                    } else if (mode == LoadStatus.canLoading) {
+                      body = const Text("");
+                    } else {
+                      body = const LoadFooter();
+                    }
+                    return Container(
+                      color: AppColors.bg,
+                      child: Center(child: body),
+                    );
+                  },
+                ),
+                controller: refreshController,
+                onRefresh: () async {
+                  await _initData(showLoading: false);
+                },
+                onLoading: () async {
+                  await _loadMore();
+                },
+                child: widget.child,
               );
-            },
-          ),
-          controller: refreshController,
-          onRefresh: () async {
-            await _initData(showLoading: false);
-          },
-          onLoading: () async {
-            await _loadMore();
-          },
-          child: widget.child);
-    });
+      },
+    );
   }
 }
 

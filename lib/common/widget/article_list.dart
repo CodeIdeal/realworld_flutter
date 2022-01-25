@@ -33,23 +33,28 @@ class _ArticlesPageState extends State<ArticlesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return LoadWrapper<Article>(
-      child: ListView.separated(
-        itemBuilder: (context, index) => _buildArticleItem(articles[index]),
-        separatorBuilder: (context, index) => Divider(height: AppSize.w_1),
-        itemCount: articles.length,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: AppSize.w_24),
+      child: LoadWrapper<Article>(
+        child: ListView.separated(
+          itemBuilder: (context, index) => _buildArticleItem(articles[index]),
+          separatorBuilder: (context, index) =>
+              Divider(height: AppSize.w_24, color: Colors.transparent),
+          itemCount: articles.length,
+        ),
+        pageService: (offset, limit) => fetchArticles(offset, limit),
+        onPageLoaded: (list) => setState(() => articles = list),
       ),
-      pageService: (offset, limit) => fetchArticles(offset, limit),
-      onPageLoaded: (list) => setState(() => articles = list),
     );
   }
 
   Widget _buildArticleItem(Article article) {
     return Container(
       padding: EdgeInsets.all(AppSize.w_24),
+      margin: EdgeInsets.symmetric(horizontal: AppSize.w_24),
       decoration: BoxDecoration(
-        color: AppColors.bg,
-        borderRadius: BorderRadius.all(Radius.circular(AppSize.w_8)),
+        color: AppColors.white,
+        borderRadius: BorderRadius.all(Radius.circular(AppSize.w_24)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

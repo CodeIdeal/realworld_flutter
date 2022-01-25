@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -43,6 +44,15 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: Pages.home,
       getPages: Pages.all,
+      scrollBehavior: MobileAndDesktopBehavior(),
     );
   }
+}
+
+class MobileAndDesktopBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }

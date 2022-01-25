@@ -37,7 +37,7 @@ class PageBar extends PreferredSize {
               direction: Axis.horizontal,
               children: [
                 Flexible(
-                  flex: 1,
+                  flex: 2,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: hideBack
@@ -58,7 +58,7 @@ class PageBar extends PreferredSize {
                   ),
                 ),
                 Flexible(
-                  flex: 2,
+                  flex: 3,
                   child: Center(
                     child: middleMenu ??
                         Text(
@@ -73,7 +73,7 @@ class PageBar extends PreferredSize {
                   ),
                 ),
                 Flexible(
-                  flex: 1,
+                  flex: 2,
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: SizedBox(

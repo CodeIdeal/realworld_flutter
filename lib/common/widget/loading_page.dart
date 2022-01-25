@@ -63,7 +63,7 @@ class _LoadingPageState extends State<LoadingPage>
             ),
             if (!widget.hideText)
               Text(
-                '努力加载中...',
+                'Loading...',
                 style: TextStyle(
                     fontSize: AppSize.s_24, color: AppColors.app_999999),
               )
