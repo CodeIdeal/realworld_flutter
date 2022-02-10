@@ -62,7 +62,7 @@ class AvatarImage extends StatelessWidget {
               url!,
               width: avatarSize,
               height: avatarSize,
-              fit: BoxFit.contain,
+              fit: BoxFit.fill,
               loadingBuilder: (context, child, progress) => (progress == null)
                   ? child
                   : Icon(

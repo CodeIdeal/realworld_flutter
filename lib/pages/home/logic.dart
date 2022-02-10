@@ -27,4 +27,9 @@ class HomeLogic extends GetxController {
     await Get.toNamed(Pages.loginOrRegister);
     fetchLogin();
   }
+
+  void goProfile() async {
+    await Get.toNamed(Pages.profile, arguments: state.user.value?.username);
+    fetchLogin();
+  }
 }

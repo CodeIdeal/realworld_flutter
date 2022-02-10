@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:realworld_flutter/common/constant/app_config.dart';
 import 'package:realworld_flutter/common/http/dio_manager.dart';
 import 'package:realworld_flutter/model/req/add_user.dart';
 import 'package:realworld_flutter/model/req/create_article.dart';
@@ -7,60 +10,69 @@ import 'package:realworld_flutter/model/req/update_profile.dart';
 import 'package:realworld_flutter/model/resp/article_resp.dart';
 import 'package:realworld_flutter/model/resp/articles_resp.dart';
 import 'package:realworld_flutter/model/resp/profile_resp.dart';
+import 'package:realworld_flutter/model/resp/upload_pic_result_resp.dart';
 import 'package:realworld_flutter/model/resp/user_resp.dart';
-import 'package:retrofit/retrofit.dart';
+import 'package:retrofit/retrofit.dart' as retrofit;
 
 part 'rest_client.g.dart';
 
-@RestApi(baseUrl: "https://api.realworld.io/api/")
+@retrofit.RestApi(baseUrl: AppConfig.baseUrl)
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
   static RestClient get client => RestClient(DioManager.dio);
 
   // add new user in database
-  @POST("/users")
-  Future<UserResp> addUser(@Body() AddUser addUser);
+  @retrofit.POST("/users")
+  Future<UserResp> addUser(@retrofit.Body() AddUser addUser);
 
   // add new article in database
-  @POST("/articles")
-  Future<ArticleResp> createArticle(@Body() CreateArticle newArticle);
+  @retrofit.POST("/articles")
+  Future<ArticleResp> createArticle(@retrofit.Body() CreateArticle newArticle);
 
   // login user in database
-  @POST("/users/login")
-  Future<UserResp> loginUser(@Body() Login login);
+  @retrofit.POST("/users/login")
+  Future<UserResp> loginUser(@retrofit.Body() Login login);
 
   // get articles
-  @GET("/articles")
+  @retrofit.GET("/articles")
   Future<ArticlesResp> getArticles({
-    @Query("author") String? author,
-    @Query("tag") String? tag,
-    @Query("favorited") String? favoriteBy,
-    @Query("limit") int limit = 10,
-    @Query("offset") int offset = 0,
+    @retrofit.Query("author") String? author,
+    @retrofit.Query("tag") String? tag,
+    @retrofit.Query("favorited") String? favoriteBy,
+    @retrofit.Query("limit") int limit = 10,
+    @retrofit.Query("offset") int offset = 0,
   });
 
   //get feed
-  @GET("/articles/feed")
+  @retrofit.GET("/articles/feed")
   Future<ArticlesResp> getFeedArticles();
 
   //get Profile
-  @GET("/profiles/{username}")
-  Future<ProfileResp> getProfile(@Path("username") String username);
+  @retrofit.GET("/profiles/{username}")
+  Future<ProfileResp> getProfile(@retrofit.Path("username") String username);
 
   //get current user
-  @GET("user")
+  @retrofit.GET("user")
   Future<UserResp> getCurrentUser();
 
   //update Profile
-  @PUT("user")
-  Future<UserResp> updateProfile(@Body() UpdateProfile updateProfile);
+  @retrofit.PUT("user")
+  Future<UserResp> updateProfile(@retrofit.Body() UpdateProfile updateProfile);
 
   //favorite article
-  @POST("/articles/{slug}/favorite")
-  Future<ArticleResp> favoriteArticle(@Path('slug') String slug);
+  @retrofit.POST("/articles/{slug}/favorite")
+  Future<ArticleResp> favoriteArticle(@retrofit.Path('slug') String slug);
 
   //unfavorite article
-  @DELETE("/articles/{slug}/favorite")
-  Future<ArticleResp> unfavoriteArticle(@Path('slug') String slug);
+  @retrofit.DELETE("/articles/{slug}/favorite")
+  Future<ArticleResp> unfavoriteArticle(@retrofit.Path('slug') String slug);
+
+  //upload pic
+  @retrofit.POST(AppConfig.picUrl)
+  @retrofit.Headers({
+    "Authorization": AppConfig.picToken,
+    "Content-Type": "multipart/form-data",
+  })
+  Future<UploadPicResult> uploadPic(@retrofit.Part(name: 'smfile') File file);
 }

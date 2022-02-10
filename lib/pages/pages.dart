@@ -5,6 +5,8 @@ import 'package:realworld_flutter/pages/login_or_register/binding.dart';
 import 'package:realworld_flutter/pages/login_or_register/view.dart';
 import 'package:realworld_flutter/pages/profile/binding.dart';
 import 'package:realworld_flutter/pages/profile/view.dart';
+import 'package:realworld_flutter/pages/profile_edit/binding.dart';
+import 'package:realworld_flutter/pages/profile_edit/view.dart';
 
 abstract class Pages {
   static const home = '/home';
@@ -27,6 +29,11 @@ abstract class Pages {
       name: Pages.profile,
       page: () => const ProfilePage(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: Pages.editProfile,
+      page: () => const ProfileEditPage(),
+      binding: ProfileEditBinding(),
     ),
   ];
 }

@@ -29,7 +29,7 @@ class AuthManager {
     DioManager.cancelAll(reason);
     ToastUtils.show(reason);
     if (jumpToLogin) {
-      Get.toNamed(Pages.loginOrRegister);
+      Get.until((route) => route.settings.name == Pages.home);
     }
   }
 }

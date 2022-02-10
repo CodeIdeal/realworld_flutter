@@ -16,18 +16,18 @@ class UpdateProfile {
 
 @JsonSerializable()
 class NewProfile {
-  String bio;
-  String email;
-  String image;
-  String password;
-  String username;
+  String? bio;
+  String? email;
+  String? image;
+  String? password;
+  String? username;
 
   NewProfile({
-    required this.bio,
-    required this.email,
-    required this.image,
-    required this.password,
-    required this.username,
+    this.bio,
+    this.email,
+    this.image,
+    this.password,
+    this.username,
   });
 
   factory NewProfile.fromJson(Map<String, dynamic> json) =>

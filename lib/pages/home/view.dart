@@ -6,7 +6,6 @@ import 'package:realworld_flutter/common/util/screen_adapter.dart';
 import 'package:realworld_flutter/common/widget/app_bar.dart';
 import 'package:realworld_flutter/common/widget/article_list.dart';
 import 'package:realworld_flutter/common/widget/avatar_image.dart';
-import 'package:realworld_flutter/pages/pages.dart';
 
 import 'logic.dart';
 
@@ -32,8 +31,7 @@ class HomePage extends GetView<HomeLogic> {
             builder: (c) => c.state.isLogin
                 ? GestureDetector(
                     behavior: HitTestBehavior.opaque,
-                    onTap: () => Get.toNamed(Pages.profile,
-                        arguments: controller.state.user.value?.username),
+                    onTap: () => c.goProfile(),
                     child: AvatarImage(
                       url: c.state.user.value?.image,
                       hasBorder: true,

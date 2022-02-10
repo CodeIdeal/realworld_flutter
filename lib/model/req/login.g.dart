@@ -11,7 +11,7 @@ Login _$LoginFromJson(Map<String, dynamic> json) => Login(
     );
 
 Map<String, dynamic> _$LoginToJson(Login instance) => <String, dynamic>{
-      'user': instance.user.toJson(),
+      'user': instance.user,
     };
 
 LoginUser _$LoginUserFromJson(Map<String, dynamic> json) => LoginUser(

@@ -26,7 +26,7 @@ class ProfilePage extends GetView<ProfileLogic> {
               ? GestureDetector(
                   onTap: () => Get.toNamed(
                     Pages.editProfile,
-                    arguments: controller.state.profile,
+                    arguments: controller.state.profile.value,
                   ),
                   child: Icon(
                     Icons.edit_rounded,

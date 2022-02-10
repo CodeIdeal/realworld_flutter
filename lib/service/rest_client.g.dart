@@ -115,7 +115,7 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ProfileResp>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/profiles/$username',
+                .compose(_dio.options, '/profiles/${username}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ProfileResp.fromJson(_result.data!);
@@ -164,7 +164,7 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ArticleResp>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/articles/$slug/favorite',
+                .compose(_dio.options, '/articles/${slug}/favorite',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ArticleResp.fromJson(_result.data!);
@@ -180,10 +180,37 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ArticleResp>(
             Options(method: 'DELETE', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/articles/$slug/favorite',
+                .compose(_dio.options, '/articles/${slug}/favorite',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ArticleResp.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UploadPicResult> uploadPic(file) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      r'Authorization': 't4dlCdMmrN885Qc0dFRb3TJR9aVGw5cH',
+      r'Content-Type': 'multipart/form-data'
+    };
+    _headers.removeWhere((k, v) => v == null);
+    final _data = FormData();
+    _data.files.add(MapEntry(
+        'smfile',
+        MultipartFile.fromFileSync(file.path,
+            filename: file.path.split(Platform.pathSeparator).last)));
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UploadPicResult>(Options(
+                method: 'POST',
+                headers: _headers,
+                extra: _extra,
+                contentType: 'multipart/form-data')
+            .compose(_dio.options, 'https://sm.ms/api/v2/upload',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UploadPicResult.fromJson(_result.data!);
     return value;
   }
 
