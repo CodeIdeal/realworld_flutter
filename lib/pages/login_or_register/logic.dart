@@ -28,4 +28,11 @@ class LoginOrRegisterLogic extends GetxController {
       ToastUtils.showError(e);
     }
   }
+
+  @override
+  void onClose() {
+    super.onClose();
+    passwordController.dispose();
+    mailController.dispose();
+  }
 }
