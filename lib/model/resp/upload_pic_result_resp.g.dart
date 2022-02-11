@@ -15,7 +15,7 @@ UploadPicResult _$UploadPicResultFromJson(Map<String, dynamic> json) =>
           ? null
           : UploadPic.fromJson(json['data'] as Map<String, dynamic>),
       images: json['images'] as String?,
-      RequestId: json['RequestId'] as String,
+      requestId: json['RequestId'] as String,
     );
 
 Map<String, dynamic> _$UploadPicResultToJson(UploadPicResult instance) =>
@@ -25,5 +25,5 @@ Map<String, dynamic> _$UploadPicResultToJson(UploadPicResult instance) =>
       'message': instance.message,
       'data': instance.data,
       'images': instance.images,
-      'RequestId': instance.RequestId,
+      'RequestId': instance.requestId,
     };

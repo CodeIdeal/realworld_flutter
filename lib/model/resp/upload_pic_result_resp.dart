@@ -10,7 +10,7 @@ class UploadPicResult {
   String message;
   UploadPic? data;
   String? images;
-  String RequestId;
+  String requestId;
 
   UploadPicResult({
     required this.success,
@@ -18,7 +18,7 @@ class UploadPicResult {
     required this.message,
     this.data,
     this.images,
-    required this.RequestId,
+    required this.requestId,
   });
 
   factory UploadPicResult.fromJson(Map<String, dynamic> json) =>
