@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
 import 'package:realworld_flutter/common/constant/app_size.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class ToastUtils {
   static showError(dynamic e) {
@@ -19,7 +18,7 @@ class ToastUtils {
   }
 
   static show(String text) {
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
       Fluttertoast.cancel();
       Fluttertoast.showToast(
         msg: text,
