@@ -71,6 +71,14 @@ abstract class RestClient {
   @retrofit.DELETE("/articles/{slug}/favorite")
   Future<ArticleResp> unfavoriteArticle(@retrofit.Path('slug') String slug);
 
+  //follow user
+  @retrofit.POST("/profiles/{username}/follow")
+  Future<ProfileResp> followUser(@retrofit.Path('username') String username);
+
+  //unfollow user
+  @retrofit.DELETE("/profiles/{username}/follow")
+  Future<ProfileResp> unfollowUser(@retrofit.Path('username') String username);
+
   //upload pic
   @retrofit.POST(AppConfig.picUrl)
   @retrofit.Headers({

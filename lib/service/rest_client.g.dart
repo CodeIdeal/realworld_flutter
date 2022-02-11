@@ -188,6 +188,38 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<ProfileResp> followUser(username) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ProfileResp>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/profiles/$username/follow',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ProfileResp.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ProfileResp> unfollowUser(username) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ProfileResp>(
+            Options(method: 'DELETE', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/profiles/$username/follow',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ProfileResp.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<UploadPicResult> uploadPic(file) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

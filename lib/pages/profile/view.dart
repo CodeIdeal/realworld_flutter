@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
 import 'package:realworld_flutter/common/constant/app_size.dart';
+import 'package:realworld_flutter/common/util/auth_manager.dart';
 import 'package:realworld_flutter/common/widget/app_bar.dart';
 import 'package:realworld_flutter/common/widget/article_list.dart';
 import 'package:realworld_flutter/common/widget/avatar_image.dart';
 import 'package:realworld_flutter/common/widget/keep_alive.dart';
 import 'package:realworld_flutter/common/widget/loading_page.dart';
+import 'package:realworld_flutter/common/widget/ripple_button.dart';
 import 'package:realworld_flutter/common/widget/round_corner_indicator.dart';
 import 'package:realworld_flutter/pages/pages.dart';
 
@@ -71,6 +73,55 @@ class ProfilePage extends GetView<ProfileLogic> {
                           ),
                         ),
                         SizedBox(height: AppSize.w_24),
+                        if (AuthManager.isLogin &&
+                            !controller.state.isCurrentUser)
+                          Row(
+                            children: [
+                              const Spacer(),
+                              RippleButton(
+                                onTap: () => controller.follow(),
+                                padding: EdgeInsets.all(AppSize.w_8),
+                                decoration: BoxDecoration(
+                                  color: controller.state.isFollowing
+                                      ? AppColors.main
+                                      : AppColors.transparent,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(AppSize.r_8)),
+                                  border: Border.all(
+                                    color: AppColors.main,
+                                    width: AppSize.w_2,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      controller.state.isFollowing
+                                          ? Icons.remove_rounded
+                                          : Icons.add_rounded,
+                                      size: AppSize.w_24,
+                                      color: controller.state.isFollowing
+                                          ? Colors.white
+                                          : AppColors.main,
+                                    ),
+                                    SizedBox(width: AppSize.w_4),
+                                    Text(
+                                      controller.state.isFollowing
+                                          ? 'Unfollow'
+                                          : 'Follow',
+                                      style: TextStyle(
+                                        color: controller.state.isFollowing
+                                            ? Colors.white
+                                            : AppColors.main,
+                                        fontSize: AppSize.s_24,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: AppSize.w_24),
+                            ],
+                          ),
                       ],
                     ),
                     childCount: 1,

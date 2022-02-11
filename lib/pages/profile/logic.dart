@@ -26,4 +26,16 @@ class ProfileLogic extends GetxController {
     }
   }
 
+  void follow() async {
+    final username =  state.profile.value?.username;
+    if(username == null) return;
+    ProfileResp profile;
+    if(state.profile.value?.following == true){
+      profile = await RestClient.client.unfollowUser(username);
+    }else{
+      profile = await RestClient.client.followUser(username);
+    }
+    state.profile.value = profile.profile;
+  }
+
 }

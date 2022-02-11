@@ -7,4 +7,7 @@ class ProfileState {
 
   bool get isCurrentUser =>
       profile.value?.username == AuthManager.user?.username;
+
+  bool get isFollowing =>
+      profile.value?.following == true;
 }

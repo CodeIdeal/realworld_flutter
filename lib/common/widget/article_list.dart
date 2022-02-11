@@ -9,6 +9,7 @@ import 'package:realworld_flutter/common/widget/load_wrapper.dart';
 import 'package:realworld_flutter/common/widget/ripple_button.dart';
 import 'package:realworld_flutter/model/entity/article.dart';
 import 'package:realworld_flutter/model/resp/article_resp.dart';
+import 'package:realworld_flutter/pages/pages.dart';
 import 'package:realworld_flutter/service/rest_client.dart';
 
 class ArticlesPage extends StatefulWidget {
@@ -60,11 +61,14 @@ class _ArticlesPageState extends State<ArticlesPage> {
         children: [
           Row(
             children: [
-              AvatarImage(
-                url: article.author.image,
-                hasBorder: true,
-                borderWidth: AppSize.w_2,
-                size: AppSize.w_56,
+              GestureDetector(
+                onTap: () => Get.toNamed(Pages.profile, arguments: article.author.username),
+                child: AvatarImage(
+                  url: article.author.image,
+                  hasBorder: true,
+                  borderWidth: AppSize.w_2,
+                  size: AppSize.w_56,
+                ),
               ),
               SizedBox(width: AppSize.w_12),
               Column(
