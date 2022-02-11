@@ -23,8 +23,8 @@ There are some screenshot :
 
 |  Platform   | ScreenShot  |
 |  ----  | ----  |
-| android  | ![android screenshot](./doc/android.jpeg "android screenshot") |
-| macOS  | ![macOS screenshot](./doc/mac.png "macOS screenshot") |
+| android  | ![android screenshot](media/android.jpeg "android screenshot") |
+| macOS  | ![macOS screenshot](media/mac.png "macOS screenshot") |
 
 # Getting started
 
