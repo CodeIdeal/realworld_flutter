@@ -11,7 +11,9 @@ UploadPicResult _$UploadPicResultFromJson(Map<String, dynamic> json) =>
       success: json['success'] as bool,
       code: json['code'] as String,
       message: json['message'] as String,
-      data: (json['data'] != null) ? UploadPic.fromJson(json['data']) : null,
+      data: json['data'] == null
+          ? null
+          : UploadPic.fromJson(json['data'] as Map<String, dynamic>),
       images: json['images'] as String?,
       RequestId: json['RequestId'] as String,
     );
@@ -21,7 +23,7 @@ Map<String, dynamic> _$UploadPicResultToJson(UploadPicResult instance) =>
       'success': instance.success,
       'code': instance.code,
       'message': instance.message,
-      'images': instance.images,
       'data': instance.data,
+      'images': instance.images,
       'RequestId': instance.RequestId,
     };

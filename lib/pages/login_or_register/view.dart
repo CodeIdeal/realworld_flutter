@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
+import 'package:realworld_flutter/common/constant/app_config.dart';
+import 'package:realworld_flutter/common/constant/app_keys.dart';
 import 'package:realworld_flutter/common/constant/app_size.dart';
+import 'package:realworld_flutter/common/util/storage.dart';
 import 'package:realworld_flutter/common/widget/app_bar.dart';
+import 'package:realworld_flutter/common/widget/ripple_button.dart';
 
 import 'logic.dart';
 
@@ -16,6 +20,44 @@ class LoginOrRegisterPage extends GetView<LoginOrRegisterLogic> {
       appBar: PageBar(
         context: context,
         title: 'Login/Register',
+        rightMenu: GestureDetector(
+          onTap: () => Get.dialog(SimpleDialog(
+            title: const Text('Set the base url'),
+            contentPadding: EdgeInsets.all(AppSize.w_24),
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: 'Base Url',
+                  hintText:
+                      Storage.getString(AppKeys.baseUrl) ?? AppConfig.baseUrl,
+                ),
+                controller: controller.urlController,
+              ),
+              SizedBox(height: AppSize.w_24),
+              RippleButton(
+                onTap: () => controller.setNewBaseUrl(),
+                height: AppSize.w_96,
+                decoration: BoxDecoration(
+                  color: AppColors.main,
+                  borderRadius: BorderRadius.all(Radius.circular(AppSize.r_8)),
+                ),
+                child: Text(
+                  'Submit',
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontSize: AppSize.s_28,
+                  ),
+                ),
+              )
+            ],
+          )),
+          child: Icon(
+            Icons.settings_rounded,
+            size: AppSize.w_48,
+            color: AppColors.main,
+          ),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(AppSize.w_16),

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
 import 'package:realworld_flutter/common/constant/app_size.dart';
-import 'package:realworld_flutter/common/http/dio_manager.dart';
 import 'package:realworld_flutter/common/util/toast_utils.dart';
 import 'package:realworld_flutter/common/widget/avatar_image.dart';
 import 'package:realworld_flutter/common/widget/load_wrapper.dart';
@@ -177,7 +176,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
 
   Future<List<Article>> fetchArticles([int offset = 0, int limit = 10]) async {
     try {
-      final resp = await RestClient(DioManager.dio).getArticles(
+      final resp = await RestClient.client.getArticles(
         author: widget.author,
         tag: widget.tag,
         favoriteBy: widget.favoriteBy,
@@ -195,9 +194,9 @@ class _ArticlesPageState extends State<ArticlesPage> {
     ArticleResp resp;
     try {
       if (article.favorited) {
-        resp = await RestClient(DioManager.dio).unfavoriteArticle(article.slug);
+        resp = await RestClient.client.unfavoriteArticle(article.slug);
       } else {
-        resp = await RestClient(DioManager.dio).favoriteArticle(article.slug);
+        resp = await RestClient.client.favoriteArticle(article.slug);
       }
       final newArticle = resp.article;
       setState(() {

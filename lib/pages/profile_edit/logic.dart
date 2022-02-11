@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:realworld_flutter/common/http/dio_manager.dart';
 import 'package:realworld_flutter/common/util/auth_manager.dart';
 import 'package:realworld_flutter/common/util/loading_dialog.dart';
 import 'package:realworld_flutter/common/util/toast_utils.dart';
@@ -53,8 +52,7 @@ class ProfileEditLogic extends GetxController {
       LoadingDialog.show();
       try {
         File file = File(result.files.first.path!);
-        UploadPicResult uploadResult =
-            await RestClient(DioManager.dio).uploadPic(file);
+        UploadPicResult uploadResult = await RestClient.client.uploadPic(file);
         if (uploadResult.code != "image_repeated" &&
             uploadResult.code != "success") {
           throw Exception('upload pic error!');
@@ -69,8 +67,7 @@ class ProfileEditLogic extends GetxController {
         final newProfile = NewProfile(
           image: state.profile.value!.image,
         );
-        await RestClient(DioManager.dio)
-            .updateProfile(UpdateProfile(user: newProfile));
+        await RestClient.client.updateProfile(UpdateProfile(user: newProfile));
       } catch (e, stacktrace) {
         e.printError();
         log(stacktrace.toString());
@@ -91,8 +88,7 @@ class ProfileEditLogic extends GetxController {
       final newProfile = NewProfile(
         bio: state.profile.value!.bio,
       );
-      await RestClient(DioManager.dio)
-          .updateProfile(UpdateProfile(user: newProfile));
+      await RestClient.client.updateProfile(UpdateProfile(user: newProfile));
     } catch (e, stacktrace) {
       e.printError();
       log(stacktrace.toString());

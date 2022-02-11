@@ -18,10 +18,10 @@ Map<String, dynamic> _$UpdateProfileToJson(UpdateProfile instance) =>
 
 NewProfile _$NewProfileFromJson(Map<String, dynamic> json) => NewProfile(
       bio: json['bio'] as String?,
-      email: json['email'] as String,
+      email: json['email'] as String?,
       image: json['image'] as String?,
-      password: json['password'] as String,
-      username: json['username'] as String,
+      password: json['password'] as String?,
+      username: json['username'] as String?,
     );
 
 Map<String, dynamic> _$NewProfileToJson(NewProfile instance) =>

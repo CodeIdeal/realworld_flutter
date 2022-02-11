@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:realworld_flutter/common/constant/app_config.dart';
+import 'package:realworld_flutter/common/constant/app_keys.dart';
 import 'package:realworld_flutter/common/http/dio_manager.dart';
+import 'package:realworld_flutter/common/util/storage.dart';
 import 'package:realworld_flutter/model/req/add_user.dart';
 import 'package:realworld_flutter/model/req/create_article.dart';
 import 'package:realworld_flutter/model/req/login.dart';
@@ -20,7 +22,8 @@ part 'rest_client.g.dart';
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
-  static RestClient get client => RestClient(DioManager.dio);
+  static RestClient get client => RestClient(DioManager.dio,
+      baseUrl: Storage.getString(AppKeys.baseUrl) ?? AppConfig.baseUrl);
 
   // add new user in database
   @retrofit.POST("/users")

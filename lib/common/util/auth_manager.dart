@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:realworld_flutter/common/constant/app_keys.dart';
 import 'package:realworld_flutter/common/http/dio_manager.dart';
 import 'package:realworld_flutter/common/util/storage.dart';
 import 'package:realworld_flutter/common/util/toast_utils.dart';
@@ -9,7 +10,8 @@ class AuthManager {
   static User? _loginUser;
 
   static init() async {
-    _loginUser = Storage.getJsonObject<User>('user', (json) => User.fromJson(json));
+    _loginUser = Storage.getJsonObject<User>(
+        AppKeys.loginUser, (json) => User.fromJson(json));
   }
 
   static get isLogin => _loginUser != null && _loginUser!.token.isNotEmpty;
@@ -20,12 +22,12 @@ class AuthManager {
 
   static login(User user) async {
     _loginUser = user;
-    await Storage.setJsonObject('user', user);
+    await Storage.setJsonObject(AppKeys.loginUser, user);
   }
 
   static logout(String reason, [bool jumpToLogin = false]) async {
     _loginUser = null;
-    await Storage.remove('user');
+    await Storage.remove(AppKeys.loginUser);
     DioManager.cancelAll(reason);
     ToastUtils.show(reason);
     if (jumpToLogin) {
