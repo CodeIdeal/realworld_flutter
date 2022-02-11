@@ -23,6 +23,7 @@ There are some screenshot :
 
 |  Platform   | ScreenShot  |
 |  ----  | ----  |
+| [web<br/>(click to jump)](https://codeideal.github.io/realworld_flutter/) | ![android screenshot](media/web.png "android screenshot") |
 | android  | ![android screenshot](media/android.jpeg "android screenshot") |
 | macOS  | ![macOS screenshot](media/mac.png "macOS screenshot") |
 
