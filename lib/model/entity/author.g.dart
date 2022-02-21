@@ -7,7 +7,7 @@ part of 'author.dart';
 // **************************************************************************
 
 Author _$AuthorFromJson(Map<String, dynamic> json) => Author(
-      bio: json['bio'] as String,
+      bio: json['bio'] as String?,
       following: json['following'] as bool,
       image: json['image'] as String,
       username: json['username'] as String,

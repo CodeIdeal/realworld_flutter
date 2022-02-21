@@ -5,6 +5,6 @@ import 'logic.dart';
 class ProfileEditBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => ProfileEditLogic());
+    Get.lazyPut(() => ProfileEditLogic(), tag: Get.arguments.toString());
   }
 }

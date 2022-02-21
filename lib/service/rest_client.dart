@@ -11,6 +11,7 @@ import 'package:realworld_flutter/model/req/login.dart';
 import 'package:realworld_flutter/model/req/update_profile.dart';
 import 'package:realworld_flutter/model/resp/article_resp.dart';
 import 'package:realworld_flutter/model/resp/articles_resp.dart';
+import 'package:realworld_flutter/model/resp/comments_resp.dart';
 import 'package:realworld_flutter/model/resp/profile_resp.dart';
 import 'package:realworld_flutter/model/resp/upload_pic_result_resp.dart';
 import 'package:realworld_flutter/model/resp/user_resp.dart';
@@ -50,6 +51,10 @@ abstract class RestClient {
   //get feed
   @retrofit.GET("/articles/feed")
   Future<ArticlesResp> getFeedArticles();
+
+  //get feed
+  @retrofit.GET("/articles/{slug}/comments/")
+  Future<CommentsResp> getArticleComment(@retrofit.Path("slug") String slug);
 
   //get Profile
   @retrofit.GET("/profiles/{username}")

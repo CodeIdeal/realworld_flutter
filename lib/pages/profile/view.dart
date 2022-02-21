@@ -15,7 +15,12 @@ import 'package:realworld_flutter/pages/pages.dart';
 import 'logic.dart';
 
 class ProfilePage extends GetView<ProfileLogic> {
-  const ProfilePage({Key? key}) : super(key: key);
+  ProfilePage({Key? key}) : super(key: key);
+
+  final String _tag = Get.arguments.toString();
+
+  @override
+  String? get tag => _tag;
 
   @override
   Widget build(BuildContext context) {

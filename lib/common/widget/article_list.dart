@@ -49,131 +49,137 @@ class _ArticlesPageState extends State<ArticlesPage> {
   }
 
   Widget _buildArticleItem(Article article) {
-    return Container(
-      padding: EdgeInsets.all(AppSize.w_24),
-      margin: EdgeInsets.symmetric(horizontal: AppSize.w_24),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.all(Radius.circular(AppSize.w_24)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              GestureDetector(
-                onTap: () => Get.toNamed(Pages.profile, arguments: article.author.username),
-                child: AvatarImage(
-                  url: article.author.image,
-                  hasBorder: true,
-                  borderWidth: AppSize.w_2,
-                  size: AppSize.w_56,
-                ),
-              ),
-              SizedBox(width: AppSize.w_12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    article.author.username,
-                    style: TextStyle(
-                      color: AppColors.main,
-                      fontSize: AppSize.s_24,
-                    ),
-                  ),
-                  SizedBox(height: AppSize.w_8),
-                  Text(
-                    DateFormat.yMMMMEEEEd()
-                        .format(DateTime.tryParse(article.createdAt)!),
-                    style: TextStyle(
-                      color: AppColors.app_989898,
-                      fontSize: AppSize.s_18,
-                    ),
-                  ),
-                ],
-              ),
-              const Spacer(),
-              RippleButton(
-                onTap: () => toggleFav(article),
-                padding: EdgeInsets.all(AppSize.w_4),
-                decoration: BoxDecoration(
-                  color: article.favorited
-                      ? AppColors.main
-                      : AppColors.transparent,
-                  borderRadius: BorderRadius.all(Radius.circular(AppSize.r_8)),
-                  border: Border.all(
-                    color: AppColors.main,
-                    width: AppSize.w_2,
+    return GestureDetector(
+      onTap: () => Get.toNamed(Pages.articleDetail, arguments: article),
+      child: Container(
+        padding: EdgeInsets.all(AppSize.w_24),
+        margin: EdgeInsets.symmetric(horizontal: AppSize.w_24),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.all(Radius.circular(AppSize.w_24)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () => Get.toNamed(Pages.profile,
+                      arguments: article.author.username),
+                  child: AvatarImage(
+                    url: article.author.image,
+                    hasBorder: true,
+                    borderWidth: AppSize.w_2,
+                    size: AppSize.w_56,
                   ),
                 ),
-                child: Row(
+                SizedBox(width: AppSize.w_12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.favorite_rounded,
-                      size: AppSize.w_24,
-                      color: article.favorited ? Colors.white : AppColors.main,
-                    ),
-                    SizedBox(width: AppSize.w_4),
                     Text(
-                      article.favoritesCount.toString(),
+                      article.author.username,
                       style: TextStyle(
-                        color:
-                            article.favorited ? Colors.white : AppColors.main,
-                        fontSize: AppSize.s_14,
+                        color: AppColors.main,
+                        fontSize: AppSize.s_24,
                       ),
-                      textAlign: TextAlign.center,
-                    )
+                    ),
+                    SizedBox(height: AppSize.w_8),
+                    Text(
+                      DateFormat.yMMMMEEEEd()
+                          .format(DateTime.tryParse(article.createdAt)!),
+                      style: TextStyle(
+                        color: AppColors.app_989898,
+                        fontSize: AppSize.s_18,
+                      ),
+                    ),
                   ],
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: AppSize.w_24),
-          Text(
-            article.title,
-            style: TextStyle(
-              color: AppColors.app_383A3C,
-              fontSize: AppSize.s_36,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            article.description,
-            style: TextStyle(
-              color: AppColors.app_808080,
-              fontSize: AppSize.s_28,
-            ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-          SizedBox(height: AppSize.w_24),
-          Row(
-            children: (article.tagList.mapMany((tag) => [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(
-                        AppSize.w_8, AppSize.w_4, AppSize.w_8, AppSize.w_4),
-                    decoration: BoxDecoration(
-                      color: AppColors.transparent,
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(AppSize.r_12)),
-                      border: Border.all(
-                        color: AppColors.app_989898,
-                        width: AppSize.w_1,
-                      ),
-                    ),
-                    child: Text(
-                      tag,
-                      style: TextStyle(
-                        color: AppColors.app_989898,
-                        fontSize: AppSize.s_16,
-                      ),
-                      textAlign: TextAlign.center,
+                const Spacer(),
+                RippleButton(
+                  onTap: () => toggleFav(article),
+                  padding: EdgeInsets.all(AppSize.w_4),
+                  decoration: BoxDecoration(
+                    color: article.favorited
+                        ? AppColors.main
+                        : AppColors.transparent,
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(AppSize.r_8)),
+                    border: Border.all(
+                      color: AppColors.main,
+                      width: AppSize.w_2,
                     ),
                   ),
-                  SizedBox(width: AppSize.w_8),
-                ])).toList(),
-          )
-        ],
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.favorite_rounded,
+                        size: AppSize.w_24,
+                        color:
+                            article.favorited ? Colors.white : AppColors.main,
+                      ),
+                      SizedBox(width: AppSize.w_4),
+                      Text(
+                        article.favoritesCount.toString(),
+                        style: TextStyle(
+                          color:
+                              article.favorited ? Colors.white : AppColors.main,
+                          fontSize: AppSize.s_14,
+                        ),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: AppSize.w_24),
+            Text(
+              article.title,
+              style: TextStyle(
+                color: AppColors.app_383A3C,
+                fontSize: AppSize.s_36,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              article.description,
+              style: TextStyle(
+                color: AppColors.app_808080,
+                fontSize: AppSize.s_28,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(height: AppSize.w_24),
+            Row(
+              children: (article.tagList.mapMany((tag) => [
+                    Container(
+                      padding: EdgeInsets.fromLTRB(
+                          AppSize.w_8, AppSize.w_4, AppSize.w_8, AppSize.w_4),
+                      decoration: BoxDecoration(
+                        color: AppColors.transparent,
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(AppSize.r_12)),
+                        border: Border.all(
+                          color: AppColors.app_989898,
+                          width: AppSize.w_1,
+                        ),
+                      ),
+                      child: Text(
+                        tag,
+                        style: TextStyle(
+                          color: AppColors.app_989898,
+                          fontSize: AppSize.s_16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(width: AppSize.w_8),
+                  ])).toList(),
+            )
+          ],
+        ),
       ),
     );
   }

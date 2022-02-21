@@ -4,13 +4,13 @@ part 'author.g.dart';
 
 @JsonSerializable()
 class Author {
-  String bio;
+  String? bio;
   bool following;
   String image;
   String username;
 
   Author({
-    required this.bio,
+    this.bio,
     required this.following,
     required this.image,
     required this.username,

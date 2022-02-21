@@ -107,6 +107,22 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<CommentsResp> getArticleComment(slug) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CommentsResp>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/articles/${slug}/comments/',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CommentsResp.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<ProfileResp> getProfile(username) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -115,7 +131,7 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ProfileResp>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/profiles/$username',
+                .compose(_dio.options, '/profiles/${username}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ProfileResp.fromJson(_result.data!);
@@ -164,7 +180,7 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ArticleResp>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/articles/$slug/favorite',
+                .compose(_dio.options, '/articles/${slug}/favorite',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ArticleResp.fromJson(_result.data!);
@@ -180,7 +196,7 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ArticleResp>(
             Options(method: 'DELETE', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/articles/$slug/favorite',
+                .compose(_dio.options, '/articles/${slug}/favorite',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ArticleResp.fromJson(_result.data!);
@@ -196,7 +212,7 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ProfileResp>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/profiles/$username/follow',
+                .compose(_dio.options, '/profiles/${username}/follow',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ProfileResp.fromJson(_result.data!);
@@ -212,7 +228,7 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ProfileResp>(
             Options(method: 'DELETE', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/profiles/$username/follow',
+                .compose(_dio.options, '/profiles/${username}/follow',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ProfileResp.fromJson(_result.data!);
