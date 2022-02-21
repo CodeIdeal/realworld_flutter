@@ -38,6 +38,7 @@ dependencies:
   flutter_screenutil: ^5.0.3
   retrofit: '>=3.0.0 <4.0.0'
   file_picker: ^4.3.3
+  flutter_markdown: ^0.6.9
   logger: any  #for logging purpose
   universal_platform: ^1.0.0+1 # for solve flutter web issue: https://github.com/flutter/flutter/issues/36126#issuecomment-596215587
 

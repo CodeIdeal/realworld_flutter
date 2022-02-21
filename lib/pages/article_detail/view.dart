@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
@@ -46,13 +47,16 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
                       SizedBox(height: AppSize.w_24),
                       _genAuthor(),
                       SizedBox(height: AppSize.w_24),
-                      Text(
-                        controller.state.body ?? '',
-                        style: TextStyle(
-                          color: AppColors.app_383A3C,
-                          fontSize: AppSize.s_32,
-                          fontStyle: FontStyle.italic,
-                        ),
+                      Markdown(
+                        physics: const NeverScrollableScrollPhysics(),
+                        data: controller.state.body ?? '',
+                        selectable: true,
+                        shrinkWrap: true,
+                        // style: TextStyle(
+                        //   color: AppColors.app_383A3C,
+                        //   fontSize: AppSize.s_32,
+                        //   fontStyle: FontStyle.italic,
+                        // ),
                       ),
                       Divider(height: AppSize.w_48),
                       if (AuthManager.isLogin) ...[
@@ -188,6 +192,7 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
             ],
           ),
         ),
+        SizedBox(width: AppSize.w_2),
       ],
     );
   }

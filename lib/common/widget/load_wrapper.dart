@@ -115,6 +115,7 @@ class _LoadWrapper<T> extends State<LoadWrapper>
     refreshController.resetNoData();
     setState(() {
       _loadData = null;
+      _startIndex = 0;
     });
     if (showLoading && widget.initLoading) {
       Timer(const Duration(milliseconds: showLoadingTime), () {
