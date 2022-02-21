@@ -123,6 +123,20 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<void> deleteComment(slug, id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    await _dio.fetch<void>(_setStreamType<void>(
+        Options(method: 'DELETE', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/articles/${slug}/comments/${id}',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    return null;
+  }
+
+  @override
   Future<ProfileResp> getProfile(username) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

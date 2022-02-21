@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
 import 'package:realworld_flutter/common/constant/app_size.dart';
+import 'package:realworld_flutter/common/util/auth_manager.dart';
 import 'package:realworld_flutter/common/widget/app_bar.dart';
 import 'package:realworld_flutter/common/widget/avatar_image.dart';
 import 'package:realworld_flutter/common/widget/ripple_button.dart';
@@ -47,9 +48,10 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
                     Text(
                       controller.state.body ?? '',
                       style: TextStyle(
-                          color: AppColors.app_383A3C,
-                          fontSize: AppSize.s_32,
-                          fontStyle: FontStyle.italic),
+                        color: AppColors.app_383A3C,
+                        fontSize: AppSize.s_32,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
                     SizedBox(height: AppSize.w_24),
                     if (controller.state.comments.isNotEmpty) ...[
@@ -194,6 +196,7 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
         border: Border.all(color: AppColors.app_E5E5E5),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: EdgeInsets.all(AppSize.w_16),
@@ -215,10 +218,9 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
               children: [
                 GestureDetector(
                   onTap: () => Get.toNamed(Pages.profile,
-                      arguments:
-                          controller.state.article.value!.author.username),
+                      arguments: comment.author.username),
                   child: AvatarImage(
-                    url: controller.state.article.value!.author.image,
+                    url: comment.author.image,
                     hasBorder: true,
                     borderWidth: AppSize.w_2,
                     size: AppSize.w_56,
@@ -226,7 +228,7 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
                 ),
                 SizedBox(width: AppSize.w_12),
                 Text(
-                  controller.state.article.value!.author.username,
+                  comment.author.username,
                   style: TextStyle(
                     color: AppColors.main,
                     fontSize: AppSize.s_24,
@@ -234,14 +236,23 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
                 ),
                 SizedBox(width: AppSize.w_12),
                 Text(
-                  DateFormat.yMMMMEEEEd().format(DateTime.tryParse(
-                      controller.state.article.value!.createdAt)!),
+                  DateFormat.yMMMMEEEEd()
+                      .format(DateTime.tryParse(comment.createdAt)!),
                   style: TextStyle(
                     color: AppColors.app_989898,
                     fontSize: AppSize.s_18,
                   ),
                 ),
                 const Spacer(),
+                if (comment.author.username == AuthManager.userName)
+                  GestureDetector(
+                    onTap: () => controller.deleteComment(comment),
+                    child: Icon(
+                      Icons.delete_rounded,
+                      size: AppSize.w_36,
+                      color: AppColors.app_BBBBBB,
+                    ),
+                  ),
               ],
             ),
           ),

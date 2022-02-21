@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:realworld_flutter/common/util/loading_dialog.dart';
 import 'package:realworld_flutter/common/util/toast_utils.dart';
+import 'package:realworld_flutter/model/entity/comment.dart';
 import 'package:realworld_flutter/model/resp/article_resp.dart';
 import 'package:realworld_flutter/model/resp/profile_resp.dart';
 import 'package:realworld_flutter/service/rest_client.dart';
@@ -20,6 +22,7 @@ class ArticleDetailLogic extends GetxController {
     final article = state.article.value;
     if (article == null) return;
     var commentsResp = await RestClient.client.getArticleComment(article.slug);
+    commentsResp.comments.sort((a, b) => b.createdAt.compareTo(a.createdAt));
     state.comments.value = commentsResp.comments;
   }
 
@@ -52,5 +55,19 @@ class ArticleDetailLogic extends GetxController {
     state.article.update((val) {
       val?.author = profile.profile;
     });
+  }
+
+  void deleteComment(Comment comment) async {
+    LoadingDialog.show();
+    final article = state.article.value;
+    if (article == null) return;
+    try {
+      await RestClient.client.deleteComment(article.slug, comment.id);
+      state.comments.removeWhere((e) => e.id == comment.id);
+    } catch (e) {
+      ToastUtils.showError(e);
+    } finally {
+      LoadingDialog.hide();
+    }
   }
 }

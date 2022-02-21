@@ -20,6 +20,8 @@ class AuthManager {
 
   static User? get user => _loginUser;
 
+  static String? get userName => _loginUser?.username;
+
   static login(User user) async {
     _loginUser = user;
     await Storage.setJsonObject(AppKeys.loginUser, user);

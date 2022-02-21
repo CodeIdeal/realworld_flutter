@@ -56,6 +56,13 @@ abstract class RestClient {
   @retrofit.GET("/articles/{slug}/comments/")
   Future<CommentsResp> getArticleComment(@retrofit.Path("slug") String slug);
 
+  //get feed
+  @retrofit.DELETE("/articles/{slug}/comments/{id}")
+  Future<void> deleteComment(
+    @retrofit.Path("slug") String slug,
+    @retrofit.Path("id") int id,
+  );
+
   //get Profile
   @retrofit.GET("/profiles/{username}")
   Future<ProfileResp> getProfile(@retrofit.Path("username") String username);
