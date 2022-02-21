@@ -11,7 +11,7 @@ class Article {
   Profile author;
   String body;
   String createdAt;
-  String description;
+  String? description;
   bool favorited;
   int favoritesCount;
   String slug;

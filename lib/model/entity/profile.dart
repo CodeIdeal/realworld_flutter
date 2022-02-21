@@ -13,7 +13,7 @@ class Profile {
 
   Profile({
     this.bio,
-    required this.following,
+    this.following = false,
     required this.image,
     required this.username,
   });

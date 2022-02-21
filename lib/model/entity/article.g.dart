@@ -10,7 +10,7 @@ Article _$ArticleFromJson(Map<String, dynamic> json) => Article(
       author: Profile.fromJson(json['author'] as Map<String, dynamic>),
       body: json['body'] as String,
       createdAt: json['createdAt'] as String,
-      description: json['description'] as String,
+      description: json['description'] as String?,
       favorited: json['favorited'] as bool,
       favoritesCount: json['favoritesCount'] as int,
       slug: json['slug'] as String,

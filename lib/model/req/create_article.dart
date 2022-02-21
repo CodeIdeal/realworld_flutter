@@ -16,16 +16,16 @@ class CreateArticle{
 @JsonSerializable()
 class NewArticle{
   String body;
-  String description;
+  String? description;
   List<String> tagList;
   String title;
 
   NewArticle({
     required this.body,
-    required this.description,
+    this.description,
     required this.tagList,
     required this.title,
-});
+  });
 
   factory NewArticle.fromJson(Map<String, dynamic> json) => _$NewArticleFromJson(json);
 

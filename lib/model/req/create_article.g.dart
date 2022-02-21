@@ -18,7 +18,7 @@ Map<String, dynamic> _$CreateArticleToJson(CreateArticle instance) =>
 
 NewArticle _$NewArticleFromJson(Map<String, dynamic> json) => NewArticle(
       body: json['body'] as String,
-      description: json['description'] as String,
+      description: json['description'] as String?,
       tagList:
           (json['tagList'] as List<dynamic>).map((e) => e as String).toList(),
       title: json['title'] as String,

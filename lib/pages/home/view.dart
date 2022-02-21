@@ -6,6 +6,7 @@ import 'package:realworld_flutter/common/util/screen_adapter.dart';
 import 'package:realworld_flutter/common/widget/app_bar.dart';
 import 'package:realworld_flutter/common/widget/article_list.dart';
 import 'package:realworld_flutter/common/widget/avatar_image.dart';
+import 'package:realworld_flutter/pages/pages.dart';
 
 import 'logic.dart';
 
@@ -48,6 +49,15 @@ class HomePage extends GetView<HomeLogic> {
                   )),
       ),
       body: const ArticlesPage(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.toNamed(Pages.newArticle),
+        child: Icon(
+          Icons.add_rounded,
+          size: AppSize.w_56,
+          color: AppColors.white,
+        ),
+        backgroundColor: AppColors.main,
+      ),
     );
   }
 }

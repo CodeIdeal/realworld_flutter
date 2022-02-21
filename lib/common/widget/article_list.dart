@@ -143,7 +143,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
               ),
             ),
             Text(
-              article.description,
+              article.description ?? article.body,
               style: TextStyle(
                 color: AppColors.app_808080,
                 fontSize: AppSize.s_28,

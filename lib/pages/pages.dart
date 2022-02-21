@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:realworld_flutter/pages/article_detail/binding.dart';
 import 'package:realworld_flutter/pages/article_detail/view.dart';
+import 'package:realworld_flutter/pages/article_post/binding.dart';
+import 'package:realworld_flutter/pages/article_post/view.dart';
 import 'package:realworld_flutter/pages/home/binding.dart';
 import 'package:realworld_flutter/pages/home/view.dart';
 import 'package:realworld_flutter/pages/login_or_register/binding.dart';
@@ -16,6 +18,7 @@ abstract class Pages {
   static const profile = '/profile';
   static const editProfile = '/editProfile';
   static const articleDetail = '/articleDetail';
+  static const newArticle = '/newArticle';
 
   static final List<GetPage> all = [
     GetPage(
@@ -42,6 +45,11 @@ abstract class Pages {
       name: Pages.articleDetail,
       page: () => ArticleDetailPage(),
       binding: ArticleDetailBinding(),
+    ),
+    GetPage(
+      name: Pages.newArticle,
+      page: () => const ArticlePostPage(),
+      binding: ArticlePostBinding(),
     ),
   ];
 }

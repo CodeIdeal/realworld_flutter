@@ -8,7 +8,7 @@ part of 'profile.dart';
 
 Profile _$ProfileFromJson(Map<String, dynamic> json) => Profile(
       bio: json['bio'] as String?,
-      following: json['following'] as bool,
+      following: (json['following'] as bool?) ?? false,
       image: json['image'] as String,
       username: json['username'] as String,
     );
