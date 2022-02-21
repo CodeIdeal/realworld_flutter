@@ -52,6 +52,7 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
                         data: controller.state.body ?? '',
                         selectable: true,
                         shrinkWrap: true,
+                        padding: EdgeInsets.zero,
                         // style: TextStyle(
                         //   color: AppColors.app_383A3C,
                         //   fontSize: AppSize.s_32,
