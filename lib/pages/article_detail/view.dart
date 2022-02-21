@@ -32,42 +32,46 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
             ? const SizedBox.shrink()
             : Padding(
                 padding: EdgeInsets.all(AppSize.w_24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      controller.state.articleTitle ?? '',
-                      style: TextStyle(
-                        color: AppColors.main,
-                        fontSize: AppSize.s_48,
-                      ),
-                    ),
-                    SizedBox(height: AppSize.w_24),
-                    _genAuthor(),
-                    SizedBox(height: AppSize.w_24),
-                    Text(
-                      controller.state.body ?? '',
-                      style: TextStyle(
-                        color: AppColors.app_383A3C,
-                        fontSize: AppSize.s_32,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                    SizedBox(height: AppSize.w_24),
-                    if (controller.state.comments.isNotEmpty) ...[
-                      Divider(height: AppSize.w_2),
-                      SizedBox(height: AppSize.w_24),
-                      Expanded(
-                        child: ListView.separated(
-                          itemBuilder: (context, index) =>
-                              _genComments(controller.state.comments[index]),
-                          separatorBuilder: (context, index) =>
-                              SizedBox(height: AppSize.w_12),
-                          itemCount: controller.state.comments.length,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        controller.state.articleTitle ?? '',
+                        style: TextStyle(
+                          color: AppColors.main,
+                          fontSize: AppSize.s_48,
                         ),
                       ),
-                    ]
-                  ],
+                      SizedBox(height: AppSize.w_24),
+                      _genAuthor(),
+                      SizedBox(height: AppSize.w_24),
+                      Text(
+                        controller.state.body ?? '',
+                        style: TextStyle(
+                          color: AppColors.app_383A3C,
+                          fontSize: AppSize.s_32,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                      Divider(height: AppSize.w_48),
+                      if (AuthManager.isLogin) ...[
+                        _genCommentPost(),
+                      ],
+                      if (controller.state.comments.isNotEmpty) ...[
+                        SizedBox(height: AppSize.w_24),
+                        ...List.generate(
+                            controller.state.comments.length,
+                            (index) => [
+                                  _genComments(
+                                      controller.state.comments[index]),
+                                  SizedBox(
+                                    height: AppSize.w_12,
+                                  )
+                                ]).mapMany((item) => item),
+                      ]
+                    ],
+                  ),
                 ),
               ),
       ),
@@ -210,6 +214,7 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
           ),
           const Divider(
             height: 1.0,
+            thickness: 1.0,
             color: AppColors.app_E5E5E5,
           ),
           Padding(
@@ -253,6 +258,86 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
                       color: AppColors.app_BBBBBB,
                     ),
                   ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _genCommentPost() {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.app_EEEEEE,
+        borderRadius: BorderRadius.all(Radius.circular(AppSize.r_8)),
+        border: Border.all(color: AppColors.app_E5E5E5),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(AppSize.w_16),
+            child: TextField(
+              controller: controller.commentController,
+              decoration: InputDecoration(
+                hintText: 'Write a comment...',
+                hintStyle: TextStyle(
+                  color: AppColors.app_999999,
+                  fontSize: AppSize.s_28,
+                ),
+                border: InputBorder.none,
+              ),
+              style: TextStyle(
+                color: AppColors.app_383A3C,
+                fontSize: AppSize.s_28,
+              ),
+            ),
+          ),
+          const Divider(
+            height: 1.0,
+            thickness: 1.0,
+            color: AppColors.app_E5E5E5,
+          ),
+          Padding(
+            padding: EdgeInsets.all(AppSize.w_16),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () => Get.toNamed(Pages.profile,
+                      arguments: AuthManager.userName),
+                  child: AvatarImage(
+                    url: AuthManager.avatar,
+                    hasBorder: true,
+                    borderWidth: AppSize.w_2,
+                    size: AppSize.w_56,
+                  ),
+                ),
+                SizedBox(width: AppSize.w_12),
+                Text(
+                  AuthManager.userName ?? '',
+                  style: TextStyle(
+                    color: AppColors.main,
+                    fontSize: AppSize.s_24,
+                  ),
+                ),
+                const Spacer(),
+                RippleButton(
+                  onTap: () => controller.postComment(),
+                  padding: EdgeInsets.all(AppSize.w_10),
+                  decoration: BoxDecoration(
+                    color: AppColors.main,
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(AppSize.r_8)),
+                  ),
+                  child: Text(
+                    'Post Comment',
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontSize: AppSize.s_28,
+                    ),
+                  ),
+                )
               ],
             ),
           ),

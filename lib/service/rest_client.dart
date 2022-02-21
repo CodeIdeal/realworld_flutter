@@ -5,12 +5,14 @@ import 'package:realworld_flutter/common/constant/app_config.dart';
 import 'package:realworld_flutter/common/constant/app_keys.dart';
 import 'package:realworld_flutter/common/http/dio_manager.dart';
 import 'package:realworld_flutter/common/util/storage.dart';
+import 'package:realworld_flutter/model/req/add_comment.dart';
 import 'package:realworld_flutter/model/req/add_user.dart';
 import 'package:realworld_flutter/model/req/create_article.dart';
 import 'package:realworld_flutter/model/req/login.dart';
 import 'package:realworld_flutter/model/req/update_profile.dart';
 import 'package:realworld_flutter/model/resp/article_resp.dart';
 import 'package:realworld_flutter/model/resp/articles_resp.dart';
+import 'package:realworld_flutter/model/resp/comment_resp.dart';
 import 'package:realworld_flutter/model/resp/comments_resp.dart';
 import 'package:realworld_flutter/model/resp/profile_resp.dart';
 import 'package:realworld_flutter/model/resp/upload_pic_result_resp.dart';
@@ -98,4 +100,10 @@ abstract class RestClient {
     "Content-Type": "multipart/form-data",
   })
   Future<UploadPicResult> uploadPic(@retrofit.Part(name: 'smfile') File file);
+
+  @retrofit.POST('/articles/{slug}/comments/')
+  Future<CommentResp> postComment(
+    @retrofit.Path('slug') String slug,
+    @retrofit.Body() AddComment comment,
+  );
 }

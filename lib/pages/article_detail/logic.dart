@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:realworld_flutter/common/util/loading_dialog.dart';
 import 'package:realworld_flutter/common/util/toast_utils.dart';
 import 'package:realworld_flutter/model/entity/comment.dart';
+import 'package:realworld_flutter/model/req/add_comment.dart';
 import 'package:realworld_flutter/model/resp/article_resp.dart';
 import 'package:realworld_flutter/model/resp/profile_resp.dart';
 import 'package:realworld_flutter/service/rest_client.dart';
@@ -10,6 +12,8 @@ import 'state.dart';
 
 class ArticleDetailLogic extends GetxController {
   final ArticleDetailState state = ArticleDetailState();
+
+  var commentController = TextEditingController();
 
   @override
   void onReady() {
@@ -64,6 +68,28 @@ class ArticleDetailLogic extends GetxController {
     try {
       await RestClient.client.deleteComment(article.slug, comment.id);
       state.comments.removeWhere((e) => e.id == comment.id);
+    } catch (e) {
+      ToastUtils.showError(e);
+    } finally {
+      LoadingDialog.hide();
+    }
+  }
+
+  Future<void> postComment() async {
+    if (commentController.value.text.isEmpty) {
+      ToastUtils.show('Comment can\'t be blank');
+      return;
+    }
+    final article = state.article.value;
+    if (article == null) return;
+    LoadingDialog.show();
+    try {
+      final commentResp = await RestClient.client.postComment(
+        article.slug,
+        AddComment(comment: NewComment(body: commentController.value.text)),
+      );
+      state.comments.insert(0, commentResp.comment);
+      commentController.clear();
     } catch (e) {
       ToastUtils.showError(e);
     } finally {
