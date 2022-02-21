@@ -42,130 +42,14 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
                       ),
                     ),
                     SizedBox(height: AppSize.w_24),
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () => Get.toNamed(Pages.profile,
-                              arguments: controller
-                                  .state.article.value!.author.username),
-                          child: AvatarImage(
-                            url: controller.state.article.value!.author.image,
-                            hasBorder: true,
-                            borderWidth: AppSize.w_2,
-                            size: AppSize.w_56,
-                          ),
-                        ),
-                        SizedBox(width: AppSize.w_12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              controller.state.article.value!.author.username,
-                              style: TextStyle(
-                                color: AppColors.main,
-                                fontSize: AppSize.s_24,
-                              ),
-                            ),
-                            SizedBox(height: AppSize.w_8),
-                            Text(
-                              DateFormat.yMMMMEEEEd().format(DateTime.tryParse(
-                                  controller.state.article.value!.createdAt)!),
-                              style: TextStyle(
-                                color: AppColors.app_989898,
-                                fontSize: AppSize.s_18,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        RippleButton(
-                          onTap: () => controller.follow(),
-                          padding: EdgeInsets.all(AppSize.w_8),
-                          decoration: BoxDecoration(
-                            color: controller.state.isFollowing
-                                ? AppColors.main
-                                : AppColors.transparent,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(AppSize.r_8)),
-                            border: Border.all(
-                              color: AppColors.main,
-                              width: AppSize.w_2,
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                controller.state.isFollowing
-                                    ? Icons.remove_rounded
-                                    : Icons.add_rounded,
-                                size: AppSize.w_24,
-                                color: controller.state.isFollowing
-                                    ? Colors.white
-                                    : AppColors.main,
-                              ),
-                              SizedBox(width: AppSize.w_4),
-                              Text(
-                                controller.state.isFollowing
-                                    ? 'Unfollow'
-                                    : 'Follow',
-                                style: TextStyle(
-                                  color: controller.state.isFollowing
-                                      ? Colors.white
-                                      : AppColors.main,
-                                  fontSize: AppSize.s_24,
-                                ),
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: AppSize.w_24),
-                        RippleButton(
-                          onTap: () => controller.toggleFav(),
-                          padding: EdgeInsets.all(AppSize.w_8),
-                          decoration: BoxDecoration(
-                            color: controller.state.isFavorite
-                                ? AppColors.main
-                                : AppColors.transparent,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(AppSize.r_8)),
-                            border: Border.all(
-                              color: AppColors.main,
-                              width: AppSize.w_2,
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.favorite_rounded,
-                                size: AppSize.w_24,
-                                color: controller.state.isFavorite
-                                    ? Colors.white
-                                    : AppColors.main,
-                              ),
-                              SizedBox(width: AppSize.w_4),
-                              Text(
-                                controller.state.favoriteCount.toString(),
-                                style: TextStyle(
-                                  color: controller.state.isFavorite
-                                      ? Colors.white
-                                      : AppColors.main,
-                                  fontSize: AppSize.s_24,
-                                ),
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    _genAuthor(),
                     SizedBox(height: AppSize.w_24),
                     Text(
                       controller.state.body ?? '',
                       style: TextStyle(
-                        color: AppColors.app_383A3C,
-                        fontSize: AppSize.s_32,
-                      ),
+                          color: AppColors.app_383A3C,
+                          fontSize: AppSize.s_32,
+                          fontStyle: FontStyle.italic),
                     ),
                     SizedBox(height: AppSize.w_24),
                     if (controller.state.comments.isNotEmpty) ...[
@@ -185,6 +69,120 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
                 ),
               ),
       ),
+    );
+  }
+
+  Widget _genAuthor() {
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () => Get.toNamed(Pages.profile,
+              arguments: controller.state.article.value!.author.username),
+          child: AvatarImage(
+            url: controller.state.article.value!.author.image,
+            hasBorder: true,
+            borderWidth: AppSize.w_2,
+            size: AppSize.w_56,
+          ),
+        ),
+        SizedBox(width: AppSize.w_12),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              controller.state.article.value!.author.username,
+              style: TextStyle(
+                color: AppColors.main,
+                fontSize: AppSize.s_24,
+              ),
+            ),
+            SizedBox(height: AppSize.w_8),
+            Text(
+              DateFormat.yMMMMEEEEd().format(DateTime.tryParse(
+                  controller.state.article.value!.createdAt)!),
+              style: TextStyle(
+                color: AppColors.app_989898,
+                fontSize: AppSize.s_18,
+              ),
+            ),
+          ],
+        ),
+        const Spacer(),
+        RippleButton(
+          onTap: () => controller.follow(),
+          padding: EdgeInsets.all(AppSize.w_8),
+          decoration: BoxDecoration(
+            color: controller.state.isFollowing
+                ? AppColors.main
+                : AppColors.transparent,
+            borderRadius: BorderRadius.all(Radius.circular(AppSize.r_8)),
+            border: Border.all(
+              color: AppColors.main,
+              width: AppSize.w_2,
+            ),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                controller.state.isFollowing
+                    ? Icons.remove_rounded
+                    : Icons.add_rounded,
+                size: AppSize.w_24,
+                color: controller.state.isFollowing
+                    ? Colors.white
+                    : AppColors.main,
+              ),
+              SizedBox(width: AppSize.w_4),
+              Text(
+                controller.state.isFollowing ? 'Unfollow' : 'Follow',
+                style: TextStyle(
+                  color: controller.state.isFollowing
+                      ? Colors.white
+                      : AppColors.main,
+                  fontSize: AppSize.s_24,
+                ),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ),
+        SizedBox(width: AppSize.w_24),
+        RippleButton(
+          onTap: () => controller.toggleFav(),
+          padding: EdgeInsets.all(AppSize.w_8),
+          decoration: BoxDecoration(
+            color: controller.state.isFavorite
+                ? AppColors.main
+                : AppColors.transparent,
+            borderRadius: BorderRadius.all(Radius.circular(AppSize.r_8)),
+            border: Border.all(
+              color: AppColors.main,
+              width: AppSize.w_2,
+            ),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                Icons.favorite_rounded,
+                size: AppSize.w_24,
+                color:
+                    controller.state.isFavorite ? Colors.white : AppColors.main,
+              ),
+              SizedBox(width: AppSize.w_4),
+              Text(
+                controller.state.favoriteCount.toString(),
+                style: TextStyle(
+                  color: controller.state.isFavorite
+                      ? Colors.white
+                      : AppColors.main,
+                  fontSize: AppSize.s_24,
+                ),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 
