@@ -10,6 +10,7 @@ class ScreenAdapter {
       BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width,
           maxHeight: MediaQuery.of(context).size.height),
+      context: context,
       designSize: const Size(750, 1334),
       orientation: Orientation.portrait,
     );
