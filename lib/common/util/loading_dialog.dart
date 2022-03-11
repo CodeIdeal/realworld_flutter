@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
 import 'package:realworld_flutter/common/constant/app_size.dart';
 
@@ -40,13 +41,20 @@ class LoadingDialog {
             Container(
               width: AppSize.w_160,
               height: AppSize.w_160,
-              padding: EdgeInsets.all(AppSize.w_32),
+              // padding: EdgeInsets.all(AppSize.w_32),
               decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.1),
                   borderRadius:
                       BorderRadius.all(Radius.circular(AppSize.r_20))),
-              child: const CircularProgressIndicator(
-                color: AppColors.main,
+              child: OverflowBox(
+                minHeight: AppSize.w_240,
+                maxHeight: AppSize.w_240,
+                minWidth: AppSize.w_240,
+                maxWidth: AppSize.w_240,
+                child: Lottie.asset(
+                  'assets/lottie/loading.json',
+                  fit: BoxFit.cover,
+                ),
               ),
             )
           ],

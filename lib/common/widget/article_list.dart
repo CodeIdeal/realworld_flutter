@@ -7,6 +7,7 @@ import 'package:realworld_flutter/common/util/toast_utils.dart';
 import 'package:realworld_flutter/common/widget/avatar_image.dart';
 import 'package:realworld_flutter/common/widget/load_wrapper.dart';
 import 'package:realworld_flutter/common/widget/ripple_button.dart';
+import 'package:realworld_flutter/common/widget/tags_widget.dart';
 import 'package:realworld_flutter/model/entity/article.dart';
 import 'package:realworld_flutter/model/resp/article_resp.dart';
 import 'package:realworld_flutter/pages/pages.dart';
@@ -152,32 +153,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
               overflow: TextOverflow.ellipsis,
             ),
             SizedBox(height: AppSize.w_24),
-            Row(
-              children: (article.tagList.mapMany((tag) => [
-                    Container(
-                      padding: EdgeInsets.fromLTRB(
-                          AppSize.w_8, AppSize.w_4, AppSize.w_8, AppSize.w_4),
-                      decoration: BoxDecoration(
-                        color: AppColors.transparent,
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(AppSize.r_12)),
-                        border: Border.all(
-                          color: AppColors.app_989898,
-                          width: AppSize.w_1,
-                        ),
-                      ),
-                      child: Text(
-                        tag,
-                        style: TextStyle(
-                          color: AppColors.app_989898,
-                          fontSize: AppSize.s_16,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SizedBox(width: AppSize.w_8),
-                  ])).toList(),
-            )
+            Tags(tags: article.tagList),
           ],
         ),
       ),

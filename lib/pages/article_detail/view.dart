@@ -8,6 +8,7 @@ import 'package:realworld_flutter/common/util/auth_manager.dart';
 import 'package:realworld_flutter/common/widget/app_bar.dart';
 import 'package:realworld_flutter/common/widget/avatar_image.dart';
 import 'package:realworld_flutter/common/widget/ripple_button.dart';
+import 'package:realworld_flutter/common/widget/tags_widget.dart';
 import 'package:realworld_flutter/model/entity/comment.dart';
 import 'package:realworld_flutter/pages/pages.dart';
 
@@ -44,6 +45,11 @@ class ArticleDetailPage extends GetView<ArticleDetailLogic> {
                           fontSize: AppSize.s_48,
                         ),
                       ),
+                      if (controller.state.article.value?.tagList.isNotEmpty ==
+                          true) ...[
+                        SizedBox(height: AppSize.w_24),
+                        Tags(tags: controller.state.article.value?.tagList),
+                      ],
                       SizedBox(height: AppSize.w_24),
                       _genAuthor(),
                       SizedBox(height: AppSize.w_24),

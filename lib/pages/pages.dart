@@ -11,6 +11,8 @@ import 'package:realworld_flutter/pages/profile/binding.dart';
 import 'package:realworld_flutter/pages/profile/view.dart';
 import 'package:realworld_flutter/pages/profile_edit/binding.dart';
 import 'package:realworld_flutter/pages/profile_edit/view.dart';
+import 'package:realworld_flutter/pages/tag_article/binding.dart';
+import 'package:realworld_flutter/pages/tag_article/view.dart';
 
 abstract class Pages {
   static const home = '/home';
@@ -19,6 +21,7 @@ abstract class Pages {
   static const editProfile = '/editProfile';
   static const articleDetail = '/articleDetail';
   static const newArticle = '/newArticle';
+  static const tagArticles = '/tagArticles';
 
   static final List<GetPage> all = [
     GetPage(
@@ -50,6 +53,11 @@ abstract class Pages {
       name: Pages.newArticle,
       page: () => const ArticlePostPage(),
       binding: ArticlePostBinding(),
+    ),
+    GetPage(
+      name: Pages.tagArticles,
+      page: () => const TagArticlePage(),
+      binding: TagArticleBinding(),
     ),
   ];
 }
