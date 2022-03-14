@@ -41,7 +41,7 @@ abstract class Pages {
     ),
     GetPage(
       name: Pages.editProfile,
-      page: () => const ProfileEditPage(),
+      page: () => ProfileEditPage(),
       binding: ProfileEditBinding(),
     ),
     GetPage(

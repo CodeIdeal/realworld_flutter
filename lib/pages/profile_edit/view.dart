@@ -9,7 +9,12 @@ import 'package:realworld_flutter/common/widget/ripple_button.dart';
 import 'logic.dart';
 
 class ProfileEditPage extends GetView<ProfileEditLogic> {
-  const ProfileEditPage({Key? key}) : super(key: key);
+  ProfileEditPage({Key? key}) : super(key: key);
+
+  final String _tag = Get.arguments.toString();
+
+  @override
+  String? get tag => _tag;
 
   @override
   Widget build(BuildContext context) {
