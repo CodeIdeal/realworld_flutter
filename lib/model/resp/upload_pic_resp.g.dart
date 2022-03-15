@@ -7,7 +7,7 @@ part of 'upload_pic_resp.dart';
 // **************************************************************************
 
 UploadPic _$UploadPicFromJson(Map<String, dynamic> json) => UploadPic(
-      fileId: json['fileId'] as int,
+      fileId: json['file_id'] as int,
       width: json['width'] as int,
       height: json['height'] as int,
       filename: json['filename'] as String,

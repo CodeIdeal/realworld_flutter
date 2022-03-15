@@ -67,7 +67,8 @@ class ProfileEditLogic extends GetxController {
         final newProfile = NewProfile(
           image: state.profile.value!.image,
         );
-        await RestClient.client.updateProfile(UpdateProfile(user: newProfile));
+        final userResp = await RestClient.client.updateProfile(UpdateProfile(user: newProfile));
+        AuthManager.login(userResp.user);
       } catch (e, stacktrace) {
         e.printError();
         log(stacktrace.toString());
@@ -88,7 +89,8 @@ class ProfileEditLogic extends GetxController {
       final newProfile = NewProfile(
         bio: state.profile.value!.bio,
       );
-      await RestClient.client.updateProfile(UpdateProfile(user: newProfile));
+      final userResp = await RestClient.client.updateProfile(UpdateProfile(user: newProfile));
+      AuthManager.login(userResp.user);
     } catch (e, stacktrace) {
       e.printError();
       log(stacktrace.toString());

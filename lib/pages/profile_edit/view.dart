@@ -80,6 +80,7 @@ class ProfileEditPage extends GetView<ProfileEditLogic> {
                 fontSize: AppSize.s_28,
               ),
               decoration: const InputDecoration(
+                  labelText: 'bio',
                   border: OutlineInputBorder(),
                   // labelText: 'BIO',
                   hintText: 'Enter your bio'),
