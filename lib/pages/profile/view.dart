@@ -31,10 +31,16 @@ class ProfilePage extends GetView<ProfileLogic> {
           context: context,
           rightMenu: controller.state.isCurrentUser
               ? GestureDetector(
-                  onTap: () => Get.toNamed(
-                    Pages.editProfile,
-                    arguments: controller.state.profile.value,
-                  ),
+                  onTap: () async {
+                    await Get.toNamed(
+                      Pages.editProfile,
+                      arguments: controller.state.profile.value,
+                    );
+                    controller.fetchUserInfo();
+                    controller.tabController.index == 0
+                        ? controller.myListController.initData?.call()
+                        : controller.favListController.initData?.call();
+                  },
                   child: Icon(
                     Icons.edit_rounded,
                     color: AppColors.main,
@@ -156,6 +162,7 @@ class ProfilePage extends GetView<ProfileLogic> {
                         height: AppSize.h_8,
                         padding: AppSize.w_100,
                       ),
+                      controller: controller.tabController,
                     ),
                   ),
                 )
@@ -166,11 +173,13 @@ class ProfilePage extends GetView<ProfileLogic> {
                       children: [
                         keepAliveWrapper(
                           child: ArticlesPage(
+                            controller: controller.myListController,
                             author: controller.state.profile.value?.username,
                           ),
                         ),
                         keepAliveWrapper(
                           child: ArticlesPage(
+                            controller: controller.favListController,
                             favoriteBy:
                                 controller.state.profile.value?.username,
                           ),

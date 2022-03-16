@@ -17,12 +17,14 @@ class ArticlesPage extends StatefulWidget {
   final String? author;
   final String? tag;
   final String? favoriteBy;
+  final LoadController? controller;
 
   const ArticlesPage({
     Key? key,
     this.author,
     this.tag,
     this.favoriteBy,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -37,6 +39,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: AppSize.w_24),
       child: LoadWrapper<Article>(
+        controller: widget.controller,
         child: ListView.separated(
           itemBuilder: (context, index) => _buildArticleItem(articles[index]),
           separatorBuilder: (context, index) =>
