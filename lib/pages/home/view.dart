@@ -48,7 +48,7 @@ class HomePage extends GetView<HomeLogic> {
                     ),
                   )),
       ),
-      body: const ArticlesPage(),
+      body: ArticlesPage(controller: controller.listController),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.toNamed(Pages.newArticle),
         child: Icon(
