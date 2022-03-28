@@ -14,7 +14,6 @@ class ToastUtils {
     }  else {
       show(e.toString());
     }
-    // TODO: add other exception handle logic
   }
 
   static show(String text) {

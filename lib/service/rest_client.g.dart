@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 part of 'rest_client.dart';
 
 // **************************************************************************
@@ -115,7 +117,7 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CommentsResp>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/articles/${slug}/comments/',
+                .compose(_dio.options, '/articles/$slug/comments/',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CommentsResp.fromJson(_result.data!);
@@ -133,7 +135,7 @@ class _RestClient implements RestClient {
             .compose(_dio.options, '/articles/${slug}/comments/${id}',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    return null;
+    return;
   }
 
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/iterable_extensions.dart';
 import 'package:realworld_flutter/common/constant/app_colors.dart';
 import 'package:realworld_flutter/common/constant/app_size.dart';
 import 'package:realworld_flutter/pages/pages.dart';
