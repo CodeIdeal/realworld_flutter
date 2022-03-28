@@ -29,12 +29,12 @@ class AuthManager {
     await Storage.setJsonObject(AppKeys.loginUser, user);
   }
 
-  static logout(String reason, [bool jumpToLogin = false]) async {
+  static logout(String reason, [bool jumpToHome = false]) async {
     _loginUser = null;
     await Storage.remove(AppKeys.loginUser);
     DioManager.cancelAll(reason);
     ToastUtils.show(reason);
-    if (jumpToLogin) {
+    if (jumpToHome) {
       Get.until((route) => route.settings.name == Pages.home);
     }
   }

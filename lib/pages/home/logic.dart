@@ -15,11 +15,6 @@ class HomeLogic extends GetxController {
     await fetchLogin();
   }
 
-  void logout() async {
-    await AuthManager.logout('manual logout');
-    fetchLogin();
-  }
-
   Future<void> fetchLogin() async {
     state.user.value = AuthManager.user;
     update(['rightMenu']);
@@ -28,6 +23,7 @@ class HomeLogic extends GetxController {
   void login() async {
     await Get.toNamed(Pages.loginOrRegister);
     fetchLogin();
+    listController.initData?.call();
   }
 
   void goProfile() async {
